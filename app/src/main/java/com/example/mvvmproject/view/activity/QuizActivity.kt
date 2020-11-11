@@ -2,6 +2,7 @@ package com.example.mvvmproject.view.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -11,14 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvmproject.R
 import com.example.mvvmproject.databinding.ActivityQuizBinding
-import com.example.mvvmproject.view.adapter.QuizRecyAdt
+import com.example.mvvmproject.view.dialog.CompleteDialog
 import com.example.mvvmproject.viewmodel.KoreanQuizVM
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_quiz.*
 import org.json.JSONArray
 
 @AndroidEntryPoint
-class QuizActivity : AppCompatActivity() {
+class QuizActivity : AppCompatActivity(){
 
     companion object {
         val TAG = this::class.java.simpleName
@@ -30,27 +31,22 @@ class QuizActivity : AppCompatActivity() {
 
         binding.lifecycleOwner = this
         val viewModel by viewModels<KoreanQuizVM>()
+
         binding.viewModel = viewModel
-//        val adapter = QuizRecyAdt()
-//        recyclerview.apply {
-//            this.layoutManager =
-//                LinearLayoutManager(this@QuizActivity, RecyclerView.VERTICAL, false)
-//            this.adapter = adapter
-//        }
 
-//        viewModel.apply {
-//            curQzDateLiveData.observe(this@QuizActivity, Observer {
-//                if (it.code == 200) {
-//                    val jsonArray2 = JSONArray(it.jsonArray)
-//                    Log.d(TAG, "test: ${jsonArray2.getJSONObject(0).getString("_DATE")}")
-//                    getQuizList(jsonArray2.getJSONObject(0).getString("_DATE"))
-//                }
-//                quizLiveData.observe(this@QuizActivity, Observer { rows ->
-////                    adapter.updateItems(rows)
-//                    Log.d(TAG, "test: ${rows.toString()}")
-//                })
-//            })
-//        }
 
+        viewModel.completeLiveData.observe(this@QuizActivity, Observer {complete->
+            if(complete){
+                val dialog= CompleteDialog.getInstance(yesClick = {yesClick->
+                    if(yesClick) viewModel.goToNextQuiz()
+                })
+                dialog.show(supportFragmentManager,"NoticeDialogFragment")
+            }
+        })
+        back_bt.setOnClickListener {
+            finish()
+        }
     }
+
+
 }

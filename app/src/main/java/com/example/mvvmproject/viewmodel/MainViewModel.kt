@@ -9,6 +9,7 @@ import com.example.mvvmproject.di.qualifier.CustomClient
 import com.example.mvvmproject.di.qualifier.OpenAPIClient
 import com.example.mvvmproject.model.vo.*
 import com.example.mvvmproject.repository.ServiceAPI
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 class MainViewModel @ViewModelInject constructor(

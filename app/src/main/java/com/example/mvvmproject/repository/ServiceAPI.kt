@@ -18,14 +18,23 @@ interface ServiceAPI {
     @POST("/main/register")
     suspend fun register(@Field("id") id: String, @Field("pw") pw: String): RegiRes
 
-    @POST("/quiz/currentDate")
-    suspend fun getCurrentDate() : QuizDate
+    @POST("/quiz/quizNo")
+    suspend fun getQuizNo(): QuizDate
+
+    @FormUrlEncoded
+    @POST("/quiz/input")
+    suspend fun insertQuiz(
+        @Field("q_name") q_name: List<String>,
+        @Field("a_one") a_one: List<String>,
+        @Field("a_two") a_two: List<String>,
+        @Field("a_three") a_three: List<String>,
+        @Field("a_four") a_four: List<String>,
+        @Field("correct_a") collect_a: List<Int>
+    )
 
 
-    @GET("json/KoreanAnswerInfo/1/5/{Q_OPEN}")
-    suspend fun getKoreanQuize(
-        @Path("Q_OPEN") q_open: String
-    ): KoreanQuizeInfo
+    @GET("json/KoreanAnswerInfo/1/476")
+    suspend fun getKoreanQuiz(): KoreanQuizeInfo
 
 
 }

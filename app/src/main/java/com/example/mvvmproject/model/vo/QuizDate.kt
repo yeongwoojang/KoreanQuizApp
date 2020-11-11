@@ -5,5 +5,5 @@ import org.json.JSONArray
 
 data class QuizDate(
     @SerializedName("code") var code: Int,
-    @SerializedName("jsonArray") var jsonArray: String
+    @SerializedName("quiz_no") var quiz_no: Int
 )

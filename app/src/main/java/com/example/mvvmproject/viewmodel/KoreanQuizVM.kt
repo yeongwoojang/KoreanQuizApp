@@ -7,59 +7,61 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mvvmproject.di.qualifier.CustomClient
 import com.example.mvvmproject.di.qualifier.OpenAPIClient
-import com.example.mvvmproject.model.vo.QuizDate
 import com.example.mvvmproject.model.vo.Row
 import com.example.mvvmproject.repository.ServiceAPI
-import com.example.mvvmproject.view.activity.MainActivity
 import kotlinx.coroutines.launch
-import org.json.JSONArray
-import java.text.SimpleDateFormat
-import java.util.*
 
 class KoreanQuizVM @ViewModelInject constructor(
     @OpenAPIClient private val service: ServiceAPI,
     @CustomClient private val service2: ServiceAPI
 ) : ViewModel() {
     val quizLiveData = MutableLiveData<List<Row>>()
-    val curQzDateLiveData = MutableLiveData<QuizDate>()
-    var startCalandar = Calendar.getInstance()
+
+    val quizIndexLiveData = MutableLiveData<Int>()
+
+    val completeLiveData = MutableLiveData<Boolean>()
+
+    val scoreLiveData = MutableLiveData<Int>()
+
+    val plusScore = 10
+
     companion object {
         val TAG = this::class.simpleName
     }
 
     init {
-        initCalandar()
-        getCurQzDate()
+        getQuizList()
+    }
+    private fun getQuizList() {
+        quizIndexLiveData.value =0
+        scoreLiveData.value = 0
+        viewModelScope.launch {
+            val quizInfo = service.getKoreanQuiz().koreanAnswerInfo.row.filter { row ->
+                row.q_name.startsWith("음")
+            }
+            for (i in quizInfo.indices) {
+                quizInfo[i].q_name = "다" + quizInfo[i].q_name
+            }
+            quizLiveData.value = quizInfo
+            Log.d("sdafs", quizLiveData.value!!.size.toString())
+        }
     }
 
-    fun getQuizList(curQzData: String) {
-//        viewModelScope.launch {
-//            val quizInfo = service.getKoreanQuize(curQzData)
-//            quizLiveData.value = quizInfo.koreanAnswerInfo.row
-//        }
-
-        val sdf = SimpleDateFormat("yyyyMMdd")
-        for(i in 1..365){
-            startCalandar.add(Calendar.DATE,1)
-            if(!(startCalandar.get(Calendar.DAY_OF_WEEK)== Calendar.SUNDAY
-                        || startCalandar.get(Calendar.DAY_OF_WEEK)== Calendar.SATURDAY)){
-                val data = sdf.format(startCalandar.time)
-                Log.d(MainActivity.TAG, "calendar: $data")
+    fun isCorrectAnswer(answer: String) {
+        completeLiveData.value = false
+        for (i in 0..quizLiveData.value!!.size - 1) {
+            if (quizLiveData.value!!.get(i).a_name.equals(answer)
+                && quizLiveData.value!!.get(i).a_correct.equals("정답")
+            ) {
+//                quizIndex.value = quizIndex.value?.plus(4)
+                completeLiveData.value = true
             }
         }
     }
 
-    fun getCurQzDate() {
-        viewModelScope.launch {
-                val curQzDate = service2.getCurrentDate()
-                curQzDateLiveData.value = curQzDate
-                val jsonArray = JSONArray(curQzDateLiveData.value?.jsonArray)
-            getQuizList(jsonArray.getJSONObject(0).getString("_DATE"))
-        }
+    fun goToNextQuiz(){
+        quizIndexLiveData.value = quizIndexLiveData.value?.plus(4)
+        scoreLiveData.value = scoreLiveData.value?.plus(plusScore)
     }
-    fun initCalandar(){
-        startCalandar.set(Calendar.YEAR,2013)
-        startCalandar.set(Calendar.MONTH,1)
-        startCalandar.set(Calendar.DATE,2)
-    }
+
 }
