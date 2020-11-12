@@ -8,10 +8,10 @@
 
     <stroke
         android:width="10dp"
-        android:color="@color/brwon200"
+        android:color="@color/orage200"
         ></stroke>
     <solid
-        android:color="@color/brwon200"
+        android:color="@color/orage200"
         ></solid>
 
 

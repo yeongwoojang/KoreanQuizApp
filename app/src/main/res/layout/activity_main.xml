@@ -8,18 +8,15 @@
     android:background="@color/brwon50"
     tools:context=".view.activity.MainActivity">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:elevation="8.0dp"
-        android:background="@drawable/form_board_cardview"
-        >
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:elevation="8dp"
+            android:background="@drawable/form_main_logo"
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -30,16 +27,39 @@
                 android:textColor="@color/black"
                 android:textSize="50dp"/>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/login_menu_bt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        android:text="로그인"
+        android:textColor="@color/black"
+        android:fontFamily="@font/be_euljiro"
+        android:background="@drawable/form_login_button"
+        />
+    <Button
+        android:id="@+id/register_menu_bt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="20dp"
+        android:text="회원가입"
+        android:textColor="@color/black"
+        android:fontFamily="@font/be_euljiro"
+        android:background="@drawable/form_join_button"
+        />
     <Button
         android:id="@+id/start_bt"
-        android:layout_width="200dp"
-        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
         android:text="시작하기"
         android:fontFamily="@font/be_euljiro"
-        android:textSize="30dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:background="@color/yellow300"
-        ></Button>
+        android:background="@drawable/form_start_button"
+       />
 </LinearLayout>

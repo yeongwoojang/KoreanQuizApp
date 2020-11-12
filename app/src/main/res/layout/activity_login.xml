@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/style_registerpage"
+    tools:context=".view.activity.LoginActivity"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/baseline_check_circle_outline_24" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register_comment"
+            android:textColor="@color/gray50"
+            android:fontFamily="@font/be_euljiro"
+            android:gravity="center"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <EditText
+            android:id="@+id/id_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/gray50"
+            android:textColorHint="@color/gray50"
+            android:fontFamily="@font/be_euljiro"
+            android:hint="아이디" />
+        <EditText
+            android:id="@+id/pw_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/gray50"
+            android:textColorHint="@color/gray50"
+            android:fontFamily="@font/be_euljiro"
+            android:hint="비밀번호" />
+
+        <Button
+            android:id="@+id/login_bt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="10dp"
+            android:text="로그인"
+            android:textColor="@color/appMainColor"
+            android:fontFamily="@font/be_euljiro"
+            android:background="@drawable/form_login_button"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="비밀번호를 잊어버리셨습니까?"
+            android:fontFamily="@font/be_euljiro"
+            android:textColor="@color/gray50"
+            android:gravity="end"
+            android:layout_marginBottom="100dp"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/go_to_main_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:fontFamily="@font/be_euljiro"
+            android:layout_gravity="end"
+            android:text="@string/go_to_main" />
+    </LinearLayout>
+</LinearLayout>

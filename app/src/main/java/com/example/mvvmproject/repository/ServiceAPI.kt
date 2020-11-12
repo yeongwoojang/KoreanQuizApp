@@ -1,9 +1,8 @@
 package com.example.mvvmproject.repository
 
-import com.example.mvvmproject.model.vo.KoreanAnswerInfo
 import com.example.mvvmproject.model.vo.KoreanQuizeInfo
 import com.example.mvvmproject.model.vo.QuizDate
-import com.example.mvvmproject.model.vo.RegiRes
+import com.example.mvvmproject.model.vo.RegsRes
 import retrofit2.http.*
 
 interface ServiceAPI {
@@ -15,22 +14,23 @@ interface ServiceAPI {
     }
 
     @FormUrlEncoded
-    @POST("/main/register")
-    suspend fun register(@Field("id") id: String, @Field("pw") pw: String): RegiRes
+    @POST("/korQuiz/register")
+    suspend fun register(
+        @Field("USER_NAME") name: String,
+        @Field("USER_ID") id: String,
+        @Field("USER_PW") pw: String,
+        @Field("USER_PHONE") phone: String
+    ): RegsRes
+
+    @FormUrlEncoded
+    @POST("/korQuiz/login")
+    suspend fun login(
+        @Field("USER_ID") id: String,
+        @Field("USER_PW") pw: String
+    ): RegsRes
 
     @POST("/quiz/quizNo")
     suspend fun getQuizNo(): QuizDate
-
-    @FormUrlEncoded
-    @POST("/quiz/input")
-    suspend fun insertQuiz(
-        @Field("q_name") q_name: List<String>,
-        @Field("a_one") a_one: List<String>,
-        @Field("a_two") a_two: List<String>,
-        @Field("a_three") a_three: List<String>,
-        @Field("a_four") a_four: List<String>,
-        @Field("correct_a") collect_a: List<Int>
-    )
 
 
     @GET("json/KoreanAnswerInfo/1/476")

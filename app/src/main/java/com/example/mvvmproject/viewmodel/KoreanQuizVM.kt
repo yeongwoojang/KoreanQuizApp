@@ -9,6 +9,7 @@ import com.example.mvvmproject.di.qualifier.CustomClient
 import com.example.mvvmproject.di.qualifier.OpenAPIClient
 import com.example.mvvmproject.model.vo.Row
 import com.example.mvvmproject.repository.ServiceAPI
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class KoreanQuizVM @ViewModelInject constructor(
@@ -35,15 +36,15 @@ class KoreanQuizVM @ViewModelInject constructor(
     private fun getQuizList() {
         quizIndexLiveData.value =0
         scoreLiveData.value = 0
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val quizInfo = service.getKoreanQuiz().koreanAnswerInfo.row.filter { row ->
                 row.q_name.startsWith("음")
             }
             for (i in quizInfo.indices) {
                 quizInfo[i].q_name = "다" + quizInfo[i].q_name
             }
-            quizLiveData.value = quizInfo
-            Log.d("sdafs", quizLiveData.value!!.size.toString())
+            quizLiveData.postValue(quizInfo)
+//            quizLiveData.value = quizInfo
         }
     }
 

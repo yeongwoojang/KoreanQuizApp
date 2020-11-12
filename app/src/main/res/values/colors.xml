@@ -7,6 +7,10 @@
     <color name="transparent">#00000000</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="appMainColor">#EFEBE9</color>
+    <color name="appSubColor">#D7CCC8</color>
+    <color name="appThirdColor">#BCAAA4</color>
+
     <!--red-->
     <color name="red50">#FFEBEE</color>
     <color name="red100">#FFCDD2</color>
