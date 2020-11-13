@@ -34,11 +34,12 @@ class QuizActivity : AppCompatActivity(){
 
         binding.viewModel = viewModel
 
-
         viewModel.completeLiveData.observe(this@QuizActivity, Observer {complete->
             if(complete){
                 val dialog= CompleteDialog.getInstance(yesClick = {yesClick->
-                    if(yesClick) viewModel.goToNextQuiz()
+                    if(yesClick) {
+                        viewModel.goToNextQuiz()
+                    }
                 })
                 dialog.show(supportFragmentManager,"NoticeDialogFragment")
             }

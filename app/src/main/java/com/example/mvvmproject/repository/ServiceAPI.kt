@@ -1,5 +1,6 @@
 package com.example.mvvmproject.repository
 
+import com.example.mvvmproject.model.vo.IdCheckRes
 import com.example.mvvmproject.model.vo.KoreanQuizeInfo
 import com.example.mvvmproject.model.vo.QuizDate
 import com.example.mvvmproject.model.vo.RegsRes
@@ -10,7 +11,6 @@ interface ServiceAPI {
         val BASE_URL: String = "http://ec2-15-164-129-208.ap-northeast-2.compute.amazonaws.com:3000"
         val KOREAN_QUIZE_URL: String =
             "http://openapi.seoul.go.kr:8088/64584b74676a797734366e4d4a576c/"
-
     }
 
     @FormUrlEncoded
@@ -20,6 +20,12 @@ interface ServiceAPI {
         @Field("USER_ID") id: String,
         @Field("USER_PW") pw: String,
         @Field("USER_PHONE") phone: String
+    ): RegsRes
+
+    @FormUrlEncoded
+    @POST("/korQuiz/idChk")
+    suspend fun idChk(
+        @Field("USER_ID") id: String
     ): RegsRes
 
     @FormUrlEncoded

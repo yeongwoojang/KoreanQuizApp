@@ -26,5 +26,9 @@ data class Row(
 
     @SerializedName("A_CORRECT")
     @Expose
-    var a_correct: String
+    var a_correct: String,
+
+    @Transient
+    var quizNO : Int
+
 )

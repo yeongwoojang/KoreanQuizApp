@@ -45,7 +45,7 @@
                 android:layout_gravity="end"
                 android:layout_marginRight="20dp"
                 android:fontFamily="@font/be_euljiro"
-                android:text="문제100" />
+                android:text="@{viewModel.quizNoLiveData}" />
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.cardview.widget.CardView
