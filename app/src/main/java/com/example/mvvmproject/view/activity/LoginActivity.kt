@@ -31,15 +31,17 @@ class LoginActivity : AppCompatActivity() {
         viewModel.apply {
             loginAndRegsCode.observe(this@LoginActivity, Observer {response->
                 if(response.code==200){
-                    viewModel.test(id_txt.text.toString().trim())
-                    val intent = Intent(this@LoginActivity,QuizActivity::class.java)
+//                    viewModel.test(id_txt.text.toString().trim())
+                    val intent = Intent(this@LoginActivity,HomeActivity::class.java)
                     startActivity(intent)
                     Toast.makeText(this@LoginActivity,response.message,Toast.LENGTH_SHORT).show()
+                    finish()
                 }else{
                     Toast.makeText(this@LoginActivity,response.message,Toast.LENGTH_SHORT).show()
                 }
             })
         }
+
 
 
     }

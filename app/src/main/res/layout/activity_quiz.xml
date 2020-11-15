@@ -12,19 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/appMainColor"
         tools:context=".view.activity.QuizActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/brwon50">
+            android:background="@color/appThirdColor">
 
             <ImageButton
-                android:id="@+id/back_bt"
+                android:id="@+id/home_bt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
-                android:src="@drawable/baseline_back_24" />
+                android:src="@drawable/baseline_home_24" />
 
             <TextView
                 android:layout_width="wrap_content"

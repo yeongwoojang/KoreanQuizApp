@@ -23,23 +23,34 @@ class MainActivity : AppCompatActivity() {
 
         val viewModel by viewModels<RegisterVM>()
 
-        if(viewModel.getLoginSession()!=null){
-            val intent = Intent(this,QuizActivity::class.java)
+//        if(viewModel.getLoginSession()!=null){
+//            val intent = Intent(this,QuizActivity::class.java)
+//            startActivity(intent)
+//            overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
+//        }
+//        viewModel.remove(this,"loginInfo")
+
+        if(viewModel.getLoginSession()!=" "){
+            val intent = Intent(this,HomeActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
+            finish()
         }
+
 
 
         login_menu_bt.setOnClickListener {
             val intent = Intent(this,LoginActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
+            finish()
         }
 
         register_menu_bt.setOnClickListener {
             val intent = Intent(this,RegisterActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
+            finish()
         }
 
 
