@@ -16,7 +16,9 @@ class ReceivedCookiesInterceptor(context : Context) :
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalResponse = chain.proceed(chain.request())
+        Log.d("Communication", "received ")
 
+        Log.d("checkCookie", "Cookie :${originalResponse.headers("Set-Cookie")}  ")
         if (!originalResponse.headers("Set-Cookie").isEmpty()) {
             val cookies: HashSet<String> = HashSet<String>()
 
@@ -25,6 +27,7 @@ class ReceivedCookiesInterceptor(context : Context) :
             }
 //             sharedPreferences에 cookies를 넣어주는 작업을 수행
             prefs.putCookies(cookies)
+
             Log.d("receivedCookie", "intercept: ${prefs.getCookies()}")
         }
         return originalResponse

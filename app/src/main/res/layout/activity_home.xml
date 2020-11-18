@@ -31,7 +31,28 @@
                 android:layout_gravity="center"
                 android:src="@drawable/baseline_home_24" />
         </androidx.appcompat.widget.Toolbar>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:background="@drawable/image_home"
+            android:src="@drawable/style_main_image"
+            />
+        <Button
+            android:id="@+id/start_bt"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:text="시작하기"
+            android:fontFamily="@font/be_euljiro"
+            android:background="@drawable/form_start_button"
+            />
     </RelativeLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -41,6 +62,6 @@
         app:headerLayout="@layout/navi_header"
         app:menu="@menu/navi_menu"
         >
-
     </com.google.android.material.navigation.NavigationView>
+
 </androidx.drawerlayout.widget.DrawerLayout>

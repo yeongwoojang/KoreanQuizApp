@@ -8,12 +8,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.mvvmproject.di.qualifier.CustomClient
 import com.example.mvvmproject.di.qualifier.OpenAPIClient
 import com.example.mvvmproject.model.vo.Row
+import com.example.mvvmproject.model.vo.UsersQuizInfo
 import com.example.mvvmproject.repository.ServiceAPI
+import com.example.mvvmproject.util.SharedPreference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class KoreanQuizVM @ViewModelInject constructor(
-    @OpenAPIClient private val service: ServiceAPI
+    @OpenAPIClient private val service: ServiceAPI,
+    @CustomClient private val customService: ServiceAPI,
+    private val prefs: SharedPreference
+
 ) : ViewModel() {
     val quizLiveData = MutableLiveData<List<Row>>()
 
@@ -25,6 +30,11 @@ class KoreanQuizVM @ViewModelInject constructor(
 
     val scoreLiveData = MutableLiveData<Int>()
 
+    val dbUpdateLiveData = MutableLiveData<String>()
+
+    val usersQuizLiveData = MutableLiveData<UsersQuizInfo>()
+
+
     private val plusScore = 10
 
     companion object {
@@ -33,6 +43,7 @@ class KoreanQuizVM @ViewModelInject constructor(
 
     init {
         getQuizList()
+        viewUpdate()
     }
 
     //퀴즈목록 받아오기
@@ -51,11 +62,11 @@ class KoreanQuizVM @ViewModelInject constructor(
                     index += 1
                     qSeq = quizInfo[i].q_seq
                 }
-                    quizInfo[i].quizNO = index
+                quizInfo[i].quizNO = index
             }
 
             quizLiveData.postValue(quizInfo)
-            quizNoLiveData.postValue(quizInfo[0].quizNO.toString()+"번")
+            quizNoLiveData.postValue(quizInfo[0].quizNO.toString() + "번")
         }
 
     }
@@ -68,6 +79,8 @@ class KoreanQuizVM @ViewModelInject constructor(
                 && quizLiveData.value!!.get(i).a_correct.equals("정답")
             ) {
                 completeLiveData.value = true
+                updateScore()
+
             }
         }
     }
@@ -75,14 +88,28 @@ class KoreanQuizVM @ViewModelInject constructor(
     //다음 문제로 이동
     fun goToNextQuiz() {
         quizIndexLiveData.value = quizIndexLiveData.value?.plus(4)
-        scoreLiveData.value = scoreLiveData.value?.plus(plusScore)
-        getQuizNo()
+//        scoreLiveData.value = scoreLiveData.value?.plus(plusScore)
+        viewUpdate()
+//        getQuizNo()
     }
 
 
     //문제 번호 얻어오기
-    private fun getQuizNo(){
-        quizNoLiveData.value = quizLiveData.value?.get(quizIndexLiveData.value!!)?.quizNO.toString()+"번"
+    private fun getQuizNo() {
+        quizNoLiveData.value =
+            quizLiveData.value?.get(quizIndexLiveData.value!!)?.quizNO.toString() + "번"
     }
 
+    private fun updateScore() {
+        viewModelScope.launch {
+            val updateResponse = customService.updateScore()
+        }
+    }
+
+    private fun viewUpdate() {
+        viewModelScope.launch {
+            val usersQuizInfo = customService.updateView()
+            usersQuizLiveData.value = usersQuizInfo
+        }
+    }
 }

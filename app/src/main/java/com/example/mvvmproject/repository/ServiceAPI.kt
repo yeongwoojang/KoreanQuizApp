@@ -1,9 +1,7 @@
 package com.example.mvvmproject.repository
 
-import com.example.mvvmproject.model.vo.IdCheckRes
-import com.example.mvvmproject.model.vo.KoreanQuizeInfo
-import com.example.mvvmproject.model.vo.QuizDate
-import com.example.mvvmproject.model.vo.RegsRes
+import androidx.lifecycle.MutableLiveData
+import com.example.mvvmproject.model.vo.*
 import retrofit2.http.*
 
 interface ServiceAPI {
@@ -22,10 +20,9 @@ interface ServiceAPI {
         @Field("USER_PHONE") phone: String
     ): RegsRes
 
-    @FormUrlEncoded
-    @POST("/korQuiz/idChk")
+    @GET("/korQuiz/idChk/{USER_ID}")
     suspend fun idChk(
-        @Field("USER_ID") id: String
+        @Path("USER_ID") id: String
     ): RegsRes
 
     @FormUrlEncoded
@@ -35,10 +32,20 @@ interface ServiceAPI {
         @Field("USER_PW") pw: String
     ): RegsRes
 
+    @PUT("/korQuiz/scoreUpdate")
+    suspend fun updateScore() :String
+
+    @GET("/korQuiz/getScore")
+    suspend fun updateView() : UsersQuizInfo
+
+
     @POST("/quiz/quizNo")
     suspend fun getQuizNo(): QuizDate
 
 
+
+    @POST("/test/test")
+    suspend fun test() : String
     @GET("json/KoreanAnswerInfo/1/476")
     suspend fun getKoreanQuiz(): KoreanQuizeInfo
 

@@ -16,11 +16,12 @@ class AddCookiesInterceptor(context : Context) : Interceptor {
     val prefs: SharedPreference = SharedPreference(context)
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
-
+        Log.d("Communication", "Request1 ")
         val builder = chain.request().newBuilder()
         val cookies = prefs.getCookies()
 
         for (cookie: String in cookies!!) {
+            Log.d("TAG", "intercept: $cookie")
             builder.addHeader("Cookie", cookie)
         }
 

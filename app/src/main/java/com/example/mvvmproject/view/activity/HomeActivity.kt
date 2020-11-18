@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
 import com.example.mvvmproject.R
 import com.example.mvvmproject.viewmodel.RegisterVM
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +36,9 @@ class HomeActivity : AppCompatActivity() {
             drawer_layout.closeDrawers()
             var id = menuItem.itemId
             when (id) {
-                R.id.ranking -> Log.d(TAG, "nav_click : RankingMenu is Clicked")
+                R.id.ranking ->{
+                    viewModel.test()
+                }
                 R.id.logout -> {
                     viewModel.removeCookies()
                     val intent  = Intent(this,MainActivity::class.java)
@@ -46,7 +49,16 @@ class HomeActivity : AppCompatActivity() {
             }
             true
         }
-
+        viewModel.sessionOkLiveData.observe(this@HomeActivity, Observer { 
+            if (it=="200"){
+                Log.d(TAG, "onCreate: ${it}")
+            }
+        })
+        start_bt.setOnClickListener {
+            val intent = Intent(this,QuizActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
+        }
 
     }
 

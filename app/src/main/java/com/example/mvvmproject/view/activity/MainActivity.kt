@@ -54,10 +54,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        start_bt.setOnClickListener {
-            val intent = Intent(this,QuizActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
-        }
+
     }
 }

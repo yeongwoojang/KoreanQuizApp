@@ -32,7 +32,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/be_euljiro"
-                android:text="@{viewModel.scoreLiveData.toString()}" />
+                android:text="@{viewModel.usersQuizLiveData.score}"
+                />
+<!--                android:text="@{viewModel.scoreLiveData.toString()}" />-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,7 +48,8 @@
                 android:layout_gravity="end"
                 android:layout_marginRight="20dp"
                 android:fontFamily="@font/be_euljiro"
-                android:text="@{viewModel.quizNoLiveData}" />
+                android:text="@{viewModel.usersQuizLiveData.quizSeq}"
+                />
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.cardview.widget.CardView
@@ -67,9 +70,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="50dp"
                     android:fontFamily="@font/be_euljiro"
-                    android:text="@{viewModel.quizLiveData[viewModel.quizIndexLiveData].q_name}"
+                    android:textSize="20dp"
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:text="@{viewModel.quizLiveData[viewModel.quizIndexLiveData].q_name}"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
