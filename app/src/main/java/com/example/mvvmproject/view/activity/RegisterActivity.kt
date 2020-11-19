@@ -1,5 +1,6 @@
 package com.example.mvvmproject.view.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -55,6 +56,8 @@ class RegisterActivity : AppCompatActivity() {
                 if (response.code == 200) {
                     Toast.makeText(this@RegisterActivity, response.message, Toast.LENGTH_SHORT)
                         .show()
+                    val intent = Intent(this@RegisterActivity,MainActivity::class.java)
+                    startActivity(intent)
                     finish()
                 } else {
                     //code == 404

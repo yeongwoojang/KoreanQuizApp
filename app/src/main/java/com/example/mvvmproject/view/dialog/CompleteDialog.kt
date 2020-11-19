@@ -35,9 +35,10 @@ class CompleteDialog(private val yesClick: (Boolean) -> Unit) : DialogFragment()
     ): View? {
         getDialog()!!.getWindow()?.setBackgroundDrawableResource(R.drawable.form_complete_dialog);
         val view = inflater.inflate(R.layout.dialog_complete, container, false)
+
         view.next_quiz.setOnClickListener {
-            yesClick(true)
             dismiss()
+            yesClick(true)
         }
         return view
     }
@@ -47,5 +48,6 @@ class CompleteDialog(private val yesClick: (Boolean) -> Unit) : DialogFragment()
         val height = (resources.displayMetrics.heightPixels * 0.40).toInt()
         dialog!!.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
+
 
 }

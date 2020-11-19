@@ -3,19 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00ffff"
-    android:orientation="vertical"
-    tools:context=".view.fragment.SecondFragment">
+    tools:context=".view.fragment.CompleteFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/s_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
-    <Button
-        android:id="@+id/s_bt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        ></Button>
+        android:text="@string/CompleteMessage"
+        android:textSize="35dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/be_euljiro"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center"
+        />
+
 </LinearLayout>

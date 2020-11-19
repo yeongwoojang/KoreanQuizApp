@@ -18,7 +18,6 @@ class KoreanQuizVM @ViewModelInject constructor(
     @OpenAPIClient private val service: ServiceAPI,
     @CustomClient private val customService: ServiceAPI,
     private val prefs: SharedPreference
-
 ) : ViewModel() {
     val quizLiveData = MutableLiveData<List<Row>>()
 
@@ -30,12 +29,10 @@ class KoreanQuizVM @ViewModelInject constructor(
 
     val scoreLiveData = MutableLiveData<Int>()
 
-    val dbUpdateLiveData = MutableLiveData<String>()
+    val updateResponseLiveData = MutableLiveData<String>()
 
     val usersQuizLiveData = MutableLiveData<UsersQuizInfo>()
 
-
-    private val plusScore = 10
 
     companion object {
         val TAG = this::class.simpleName
@@ -50,8 +47,8 @@ class KoreanQuizVM @ViewModelInject constructor(
     private fun getQuizList() {
         var index = 0
         var qSeq = 0.0
-        quizIndexLiveData.value = 0
-        scoreLiveData.value = 0
+//        quizIndexLiveData.value = 0
+//        scoreLiveData.value = 0
         viewModelScope.launch(Dispatchers.IO) {
             val quizInfo = service.getKoreanQuiz().koreanAnswerInfo.row.filter { row ->
                 row.q_name.startsWith("음")
@@ -64,9 +61,8 @@ class KoreanQuizVM @ViewModelInject constructor(
                 }
                 quizInfo[i].quizNO = index
             }
-
             quizLiveData.postValue(quizInfo)
-            quizNoLiveData.postValue(quizInfo[0].quizNO.toString() + "번")
+//            quizNoLiveData.postValue(quizInfo[0].quizNO.toString() + "번")
         }
 
     }
@@ -79,34 +75,35 @@ class KoreanQuizVM @ViewModelInject constructor(
                 && quizLiveData.value!!.get(i).a_correct.equals("정답")
             ) {
                 completeLiveData.value = true
-                updateScore()
-
+//                updateScore()
             }
         }
     }
 
     //다음 문제로 이동
-    fun goToNextQuiz() {
-        quizIndexLiveData.value = quizIndexLiveData.value?.plus(4)
-//        scoreLiveData.value = scoreLiveData.value?.plus(plusScore)
-        viewUpdate()
-//        getQuizNo()
-    }
+//    fun goToNextQuiz() {
+//        quizIndexLiveData.value = quizIndexLiveData.value?.plus(4)
+////        scoreLiveData.value = scoreLiveData.value?.plus(plusScore)
+//        viewUpdate()
+////        getQuizNo()
+//    }
+    
 
 
     //문제 번호 얻어오기
-    private fun getQuizNo() {
-        quizNoLiveData.value =
-            quizLiveData.value?.get(quizIndexLiveData.value!!)?.quizNO.toString() + "번"
-    }
+//    private fun getQuizNo() {
+//        quizNoLiveData.value =
+//            quizLiveData.value?.get(quizIndexLiveData.value!!)?.quizNO.toString() + "번"
+//    }
 
-    private fun updateScore() {
+    fun updateScore() {
         viewModelScope.launch {
-            val updateResponse = customService.updateScore()
+            updateResponseLiveData.value = customService.updateScore()
         }
+//        viewUpdate()
     }
 
-    private fun viewUpdate() {
+     fun viewUpdate() {
         viewModelScope.launch {
             val usersQuizInfo = customService.updateView()
             usersQuizLiveData.value = usersQuizInfo
