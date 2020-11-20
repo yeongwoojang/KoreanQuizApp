@@ -20,19 +20,10 @@ class KoreanQuizVM @ViewModelInject constructor(
     private val prefs: SharedPreference
 ) : ViewModel() {
     val quizLiveData = MutableLiveData<List<Row>>()
-
-    val quizIndexLiveData = MutableLiveData<Int>()
-
-    val quizNoLiveData = MutableLiveData<String>()
-
     val completeLiveData = MutableLiveData<Boolean>()
-
-    val scoreLiveData = MutableLiveData<Int>()
-
     val updateResponseLiveData = MutableLiveData<String>()
-
     val usersQuizLiveData = MutableLiveData<UsersQuizInfo>()
-
+    val loadingLiveData = MutableLiveData<Boolean>()
 
     companion object {
         val TAG = this::class.simpleName
@@ -47,8 +38,7 @@ class KoreanQuizVM @ViewModelInject constructor(
     private fun getQuizList() {
         var index = 0
         var qSeq = 0.0
-//        quizIndexLiveData.value = 0
-//        scoreLiveData.value = 0
+        loadingLiveData.value = false
         viewModelScope.launch(Dispatchers.IO) {
             val quizInfo = service.getKoreanQuiz().koreanAnswerInfo.row.filter { row ->
                 row.q_name.startsWith("음")
@@ -62,6 +52,7 @@ class KoreanQuizVM @ViewModelInject constructor(
                 quizInfo[i].quizNO = index
             }
             quizLiveData.postValue(quizInfo)
+            loadingLiveData.postValue(true)
 //            quizNoLiveData.postValue(quizInfo[0].quizNO.toString() + "번")
         }
 

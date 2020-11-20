@@ -9,13 +9,13 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/quiz_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/appMainColor"
+        android:visibility="invisible"
         tools:context=".view.fragment.QuizFragment">
-
-
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -51,6 +51,7 @@
                         android:layout_weight="7"
                         android:fontFamily="@font/be_euljiro"
                         android:text="일번."
+                        android:gravity="center"
                         android:textColor="@color/black"/>
 
                     <TextView
@@ -76,6 +77,7 @@
                         android:layout_weight="7"
                         android:fontFamily="@font/be_euljiro"
                         android:text="이번."
+                        android:gravity="center"
                         android:textColor="@color/black"/>
 
                     <TextView
@@ -101,6 +103,7 @@
                         android:layout_weight="7"
                         android:fontFamily="@font/be_euljiro"
                         android:text="삼번."
+                        android:gravity="center"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -126,6 +129,7 @@
                         android:layout_weight="7"
                         android:fontFamily="@font/be_euljiro"
                         android:text="사번"
+                        android:gravity="center"
                         android:textColor="@color/black" />
 
                     <TextView

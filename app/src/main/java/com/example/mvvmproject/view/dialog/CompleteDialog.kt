@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.mvvmproject.R
 import com.example.mvvmproject.databinding.ActivityQuizBinding
@@ -20,8 +21,9 @@ import kotlinx.android.synthetic.main.dialog_complete.*
 import kotlinx.android.synthetic.main.dialog_complete.view.*
 import java.lang.IllegalStateException
 
+@AndroidEntryPoint
 class CompleteDialog(private val yesClick: (Boolean) -> Unit) : DialogFragment() {
-
+    val viewModel by activityViewModels<KoreanQuizVM>()
     companion object {
         fun getInstance(yesClick : (Boolean) -> Unit): DialogFragment {
             return CompleteDialog(yesClick)
@@ -37,8 +39,8 @@ class CompleteDialog(private val yesClick: (Boolean) -> Unit) : DialogFragment()
         val view = inflater.inflate(R.layout.dialog_complete, container, false)
 
         view.next_quiz.setOnClickListener {
-            dismiss()
             yesClick(true)
+            dismiss()
         }
         return view
     }
@@ -48,6 +50,8 @@ class CompleteDialog(private val yesClick: (Boolean) -> Unit) : DialogFragment()
         val height = (resources.displayMetrics.heightPixels * 0.40).toInt()
         dialog!!.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
-
+    override fun dismiss() {
+        super.dismiss()
+    }
 
 }
