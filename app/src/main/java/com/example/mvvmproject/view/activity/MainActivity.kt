@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.example.mvvmproject.R
-import com.example.mvvmproject.viewmodel.KoreanQuizVM
 import com.example.mvvmproject.viewmodel.RegisterVM
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,8 +21,8 @@ class MainActivity : AppCompatActivity() {
 
 
         val viewModel by viewModels<RegisterVM>()
-
-        if(viewModel.getLoginSession()!=" "){
+        val userId = viewModel.getLoginSession()
+        if(userId!=" "){
             val intent = Intent(this,HomeActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.fade_in,R.anim.fade_out)

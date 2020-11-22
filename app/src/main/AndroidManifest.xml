@@ -25,6 +25,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".util.AlarmBroadcastReciever"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.test.alarmtestous.ALARM_START" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

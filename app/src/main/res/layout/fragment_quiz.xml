@@ -14,7 +14,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/appMainColor"
-        android:visibility="invisible"
         tools:context=".view.fragment.QuizFragment">
 
         <androidx.cardview.widget.CardView
@@ -28,7 +27,15 @@
                 android:layout_margin="10dp"
                 android:orientation="vertical">
 
-
+                <TextView
+                    android:id="@+id/incorrect_cnt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="틀린횟수 : "
+                    android:textSize="15dp"
+                    android:fontFamily="@font/be_euljiro"
+                    android:textColor="@color/red200"
+                    />
                 <TextView
                     android:id="@+id/quiz_title"
                     android:layout_width="match_parent"

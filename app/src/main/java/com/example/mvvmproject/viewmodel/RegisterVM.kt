@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 class RegisterVM @ViewModelInject constructor(
     @CustomClient private val service: ServiceAPI,
     private val prefs: SharedPreference,
-    private val security : HashSecurity
+    private val security: HashSecurity
 ) : ViewModel() {
     companion object {
         val TAG = this::class.java.simpleName
@@ -37,13 +37,14 @@ class RegisterVM @ViewModelInject constructor(
         }
     }
 
-    fun test(){
+    fun test() {
         viewModelScope.launch {
             val sessionOk = service.test()
             sessionOkLiveData.value = sessionOk
             Log.d("Communication", "data")
         }
     }
+
     fun idChk(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val mIdChkCode = service.idChk(id)
@@ -70,22 +71,21 @@ class RegisterVM @ViewModelInject constructor(
 //        return App.prefs.userId
 //    }
     fun getLoginSession(): String {
-        var userSession :String =" "
+        var userSession: String = " "
         val iterator = prefs.getCookies()?.iterator()
-        if(iterator!=null){
-            while(iterator.hasNext()){
+        if (iterator != null) {
+            while (iterator.hasNext()) {
                 userSession = iterator.next()
+                userSession = userSession.split(";")[0].split("=")[1]
                 Log.d(TAG, "getLoginSession: $userSession")
             }
         }
         return userSession
+
     }
 
-    fun remove(context: Context, data: String) {
-        prefs.removeId(context, data)
-    }
 
-    fun removeCookies(){
+    fun removeCookies() {
         prefs.remoceCookies()
     }
 }

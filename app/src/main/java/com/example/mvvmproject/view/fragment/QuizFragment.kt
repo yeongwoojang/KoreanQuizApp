@@ -6,6 +6,7 @@ import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,17 +29,9 @@ import java.util.*
 @AndroidEntryPoint
 class QuizFragment : Fragment() {
     val viewModel by activityViewModels<KoreanQuizVM>()
-
+    var score = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val customLoading = LoadingActivity(requireContext())
-        customLoading.show()
-        viewModel.loadingLiveData.observe(requireActivity(), androidx.lifecycle.Observer {
-            if (it ==true){
-                customLoading.dismiss()
-                quiz_screen.visibility=View.VISIBLE
-            }
-        })
     }
 
     override fun onCreateView(
@@ -59,32 +52,69 @@ class QuizFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dialog = CompleteDialog.getInstance(yesClick = {yesClick->
-            if(yesClick){
+        //정답을 맞췄을 시 화면을 갱신해준다.
+        val dialog = CompleteDialog.getInstance(yesClick = { yesClick ->
+            if (yesClick) {
                 viewModel.viewUpdate()
             }
-
         })
-        //정답을 선택했을 시 팝업 표시
-        viewModel.completeLiveData.observe(requireActivity(), androidx.lifecycle.Observer  { complete->
-            if(complete){
-                viewModel.updateScore()
-                dialog.isCancelable = false
-                dialog.show(childFragmentManager,"NoticeDialogFragment")
+
+        //로딩화면을 띄운다.
+        val customLoading = LoadingActivity(requireContext())
+        customLoading.show()
+
+        //퀴즈 로딩이 다되었는지 관찰하고 그 후 작업 수행
+        viewModel.loadingLiveData.observe(requireActivity(), androidx.lifecycle.Observer {
+            //퀴즈를 다 불러왔을 때 풀 문제가 남아있다면 퀴즈를 보여준다.
+            if (it == true && score != 1000) {
+                customLoading.dismiss()
+                quiz_screen.visibility = View.VISIBLE
+                //퀴즈를 다 불러왔을 때 문제를 다 풀었다면 완료 프래그먼트로 교체한다.
+            } else if (it == true && score == 1000) {
+                customLoading.dismiss()
+                findNavController().navigate(R.id.action_quizFragment_to_completeFragment)
             }
         })
 
-        //DB에 점수와 문제 번호가 잘 업데이트 되었다면
-        //UI를 업데이트 하기위해 DB를 읽어와서 화면을 갱신해준다.
-//        viewModel.updateResponseLiveData.observe(requireActivity(), androidx.lifecycle.Observer  {
-//            if (it=="200") viewModel.viewUpdate()
-//        })
+        //정답을 선택했을 시 팝업 표시
+        viewModel.completeLiveData.observe(
+            requireActivity(),
+            androidx.lifecycle.Observer { complete ->
+                if (complete) {
+                    viewModel.updateScore()
+                    dialog.isCancelable = false
+                    dialog.show(childFragmentManager, "NoticeDialogFragment")
+                    viewModel.restartIncorrectCnt()
+                }else{
+                    viewModel.putIncorrectCount()
+                }
+            })
 
-        //모든 문제를 다 풀었다면 완료화면 프래그먼트로 교체한다.
-        viewModel.usersQuizLiveData.observe(requireActivity(), androidx.lifecycle.Observer  {
-            if(it.score==1000){
-                findNavController().navigate(R.id.action_quizFragment_to_completeFragment)
-//                Log.d("1000cpom", "onViewCreated: 완료")
+        //유저의 현재 점수를 초기화한다.
+        viewModel.usersQuizLiveData.observe(requireActivity(), androidx.lifecycle.Observer {
+            score = it.score
+        })
+
+        viewModel.putIncorrectCntResLv.observe(requireActivity(), androidx.lifecycle.Observer {
+            if(it==200){
+                viewModel.getIncorrectCount()
+            }
+        })
+
+        viewModel.incorrectCountLiveData.observe(requireActivity(), androidx.lifecycle.Observer {
+            incorrect_cnt.text = "틀린 횟수 : ${it}번"
+            if (it==3){
+
+                oneBt.isClickable = false
+                twoBt.isClickable = false
+                threeBt.isClickable = false
+                fourBt.isClickable = false
+
+            }else{
+                oneBt.isClickable = true
+                twoBt.isClickable = true
+                threeBt.isClickable = true
+                fourBt.isClickable = true
             }
         })
     }

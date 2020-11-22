@@ -42,12 +42,22 @@ interface ServiceAPI {
     @POST("/quiz/quizNo")
     suspend fun getQuizNo(): QuizDate
 
+    @GET("/korQuiz/incorrectCnt")
+    suspend fun getIncorrectCount() : IncorrectCount
 
+    @PUT("KorQuiz/plusIncorrectCnt")
+    suspend fun putIncorrectCount() : String
+
+    @PUT("KorQuiz/restartIncorrectCnt")
+    suspend fun restartIncorrectCount() : String
 
     @POST("/test/test")
     suspend fun test() : String
+
     @GET("json/KoreanAnswerInfo/1/476")
     suspend fun getKoreanQuiz(): KoreanQuizeInfo
+
+
 
 
 }

@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/appMainColor"
+    android:background="@drawable/style_registerpage"
     android:orientation="horizontal"
     tools:context=".view.activity.HomeActivity">
 
@@ -31,23 +31,47 @@
                 android:layout_gravity="center"
                 android:src="@drawable/baseline_home_24" />
         </androidx.appcompat.widget.Toolbar>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/toolbar"
-            android:background="@drawable/image_home"
-            android:src="@drawable/style_main_image"
-            />
+       <LinearLayout
+           android:layout_below="@id/toolbar"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+            android:orientation="vertical"
+           android:layout_above="@+id/start_bt"
+           android:layout_marginTop="50dp"
+           >
+           <TextView
+               android:id="@+id/user_id"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="jyw1218"
+               android:textColor="@color/black"
+               android:gravity="center"
+               android:textSize="15dp"
+               android:fontFamily="@font/be_euljiro"
+               android:layout_marginBottom="10dp"
+               />
+           <TextView
+               android:id="@+id/user_score"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="210점"
+               android:textSize="15dp"
+               android:gravity="center"
+               android:textColor="@color/black"
+               android:fontFamily="@font/be_euljiro"
+              />
+       </LinearLayout>
         <Button
             android:id="@+id/start_bt"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="80dp"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
             android:text="시작하기"
+            android:textSize="20dp"
             android:fontFamily="@font/be_euljiro"
             android:background="@drawable/form_start_button"
             />
@@ -65,3 +89,11 @@
     </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
+
+<!--<ImageView-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:layout_below="@+id/toolbar"-->
+<!--android:background="@drawable/image_home"-->
+<!--android:src="@drawable/style_main_image"-->
+<!--    />-->

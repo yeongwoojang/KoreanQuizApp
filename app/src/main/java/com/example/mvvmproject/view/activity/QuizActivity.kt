@@ -1,5 +1,6 @@
 package com.example.mvvmproject.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -33,6 +34,9 @@ class QuizActivity : AppCompatActivity(){
 
 
         home_bt.setOnClickListener {
+            val intent = Intent(this,HomeActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
             finish()
         }
     }

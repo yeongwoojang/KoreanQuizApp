@@ -14,14 +14,6 @@ class SharedPreference(context: Context) {
     val prefs: SharedPreferences =
         context.getSharedPreferences("loginInfo", Context.MODE_PRIVATE)
 
-    var userId: String?
-        get() = prefs.getString("loginInfo", null)
-        set(value) = prefs.edit().putString("loginInfo", value).apply()
-
-    fun removeId(context: Context, key: String) {
-        prefs.edit().remove(key).apply()
-    }
-
     fun putCookies(cookies: HashSet<String>) {
         prefs.edit().putStringSet("cookies", cookies).apply()
     }

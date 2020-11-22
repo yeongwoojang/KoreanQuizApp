@@ -9,6 +9,8 @@ import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import com.example.mvvmproject.R
+import com.example.mvvmproject.viewmodel.HomeVM
+import com.example.mvvmproject.viewmodel.KoreanQuizVM
 import com.example.mvvmproject.viewmodel.RegisterVM
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_home.*
@@ -25,8 +27,16 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         val viewModel by viewModels<RegisterVM>()
+        val userViewModel by viewModels<HomeVM>()
 
-
+        val userId = viewModel.getLoginSession()
+        user_id.text = "${userId} 님 환영합니다."
+        userViewModel.usersQuizLiveData.observe(this, Observer {
+            if( it.code==200){
+                user_score.text = if(it.score!=1000) "현재 점수는 ${it.score}점 입니다."
+                else "모든 문제를 다 푸셨습니다."
+            }
+        })
         menu_bt.setOnClickListener {
             drawer_layout.openDrawer(GravityCompat.START)
         }
@@ -58,6 +68,7 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this,QuizActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
+            finish()
         }
 
     }
