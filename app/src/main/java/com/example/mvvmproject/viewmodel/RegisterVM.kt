@@ -37,13 +37,7 @@ class RegisterVM @ViewModelInject constructor(
         }
     }
 
-    fun test() {
-        viewModelScope.launch {
-            val sessionOk = service.test()
-            sessionOkLiveData.value = sessionOk
-            Log.d("Communication", "data")
-        }
-    }
+
 
     fun idChk(id: String) {
         viewModelScope.launch(Dispatchers.IO) {

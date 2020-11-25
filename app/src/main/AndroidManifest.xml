@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.mvvmproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,7 +18,6 @@
         <activity android:name=".view.activity.RegisterActivity" />
         <activity android:name=".view.activity.LoginActivity" />
         <activity android:name=".view.activity.QuizActivity" />
-        <activity android:name=".view.activity.SubActivity" />
         <activity android:name=".view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,14 +26,22 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name=".util.AlarmBroadcastReciever"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.test.alarmtestous.ALARM_START" />
-            </intent-filter>
-        </receiver>
+<!--        <receiver-->
+<!--            android:name=".view.activity.HomeActivity$AlarmBroadcastReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true"-->
+<!--            tools:ignore="Instantiatable">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="alarmCallAction" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="com.example.mvvmproject.workmanager-init"
+            android:exported="false"
+            tools:node="remove" />
+
     </application>
 
 </manifest>

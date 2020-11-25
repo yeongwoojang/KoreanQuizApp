@@ -11,11 +11,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.work.WorkInfo
 import com.example.mvvmproject.R
 import com.example.mvvmproject.databinding.FragmentQuizBinding
 import com.example.mvvmproject.view.activity.LoadingActivity
@@ -104,7 +106,7 @@ class QuizFragment : Fragment() {
         viewModel.incorrectCountLiveData.observe(requireActivity(), androidx.lifecycle.Observer {
             incorrect_cnt.text = "틀린 횟수 : ${it}번"
             if (it==3){
-
+                viewModel.startLongTask()
                 oneBt.isClickable = false
                 twoBt.isClickable = false
                 threeBt.isClickable = false
@@ -115,6 +117,12 @@ class QuizFragment : Fragment() {
                 twoBt.isClickable = true
                 threeBt.isClickable = true
                 fourBt.isClickable = true
+            }
+        })
+        viewModel.workInfoLiveData.observe(requireActivity(), androidx.lifecycle.Observer {
+            workInfo ->
+            if(workInfo.state== WorkInfo.State.SUCCEEDED){
+                Toast.makeText(requireContext(),"success!!",Toast.LENGTH_SHORT).show()
             }
         })
     }

@@ -3,23 +3,24 @@ package com.example.mvvmproject.viewmodel
 import android.app.AlarmManager
 import android.app.Application
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import androidx.work.*
 import com.example.mvvmproject.di.qualifier.CustomClient
 import com.example.mvvmproject.di.qualifier.OpenAPIClient
 import com.example.mvvmproject.model.vo.IncorrectCount
 import com.example.mvvmproject.model.vo.Row
 import com.example.mvvmproject.model.vo.UsersQuizInfo
 import com.example.mvvmproject.repository.ServiceAPI
-import com.example.mvvmproject.util.AlarmBroadcastReciever
 import com.example.mvvmproject.util.SharedPreference
+import com.example.mvvmproject.util.TimeWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
@@ -40,13 +41,21 @@ class KoreanQuizVM @ViewModelInject constructor(
     val loadingLiveData = MutableLiveData<Boolean>()
     val incorrectCountLiveData = MutableLiveData<Int>()
     val putIncorrectCntResLv = MutableLiveData<Int>()
-    val putZeroCntResLv = MutableLiveData<Int>()
+
+    val workManager = WorkManager.getInstance(context)
+
+
+    val inputData = Data.Builder()
+        .putInt("count",3)
+        .build()
+    val request = OneTimeWorkRequestBuilder<TimeWorker>().setInputData(inputData).build()
+    val workInfoLiveData: LiveData<WorkInfo> = workManager.getWorkInfoByIdLiveData(request.id)
 
     companion object {
         val TAG = this::class.simpleName
         val ALARM_CALL_ACTION = "alarmCallAction";
-
     }
+
 
     init {
         getQuizList()
@@ -54,7 +63,9 @@ class KoreanQuizVM @ViewModelInject constructor(
         getIncorrectCount()
 
     }
-
+    fun startLongTask() {
+        workManager.enqueueUniqueWork("test",	ExistingWorkPolicy.REPLACE,request)
+    }
     //퀴즈목록 받아오기
     private fun getQuizList() {
         var index = 0
@@ -116,42 +127,41 @@ class KoreanQuizVM @ViewModelInject constructor(
             incorrectCountLiveData.value = incorrectCntInfo
             if (incorrectCountLiveData.value == 3) {
                 Log.d("TEST", "getIncorrectCount: OK")
-                var calendar = Calendar.getInstance()
+                val calendar = Calendar.getInstance()
                 calendar.add(Calendar.MINUTE, 1)
 
-                val alarmIntent = Intent(context, AlarmBroadcastReciever::class.java).apply {
-                    action = ALARM_CALL_ACTION
-                }
 
-                val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                var pendingIntent = PendingIntent.getBroadcast(
-                    context,
-                    0,
-                    alarmIntent,
-                    PendingIntent.FLAG_CANCEL_CURRENT
-                )
-
-                if (Build.VERSION.SDK_INT >= 23) {
-                    alarmManager.setExactAndAllowWhileIdle(
-                        AlarmManager.RTC_WAKEUP,
-                        calendar.timeInMillis,
-                        pendingIntent
-                    )
-                } else {
-                    if (Build.VERSION.SDK_INT >= 21) {
-                        alarmManager.setExact(
-                            AlarmManager.RTC_WAKEUP,
-                            calendar.timeInMillis,
-                            pendingIntent
-                        )
-                    } else {
-                        alarmManager.set(
-                            AlarmManager.RTC_WAKEUP,
-                            calendar.timeInMillis,
-                            pendingIntent
-                        )
-                    }
-                }
+//                val alarmIntent = Intent(ALARM_CALL_ACTION)
+//
+//                val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+//                val pendingIntent = PendingIntent.getBroadcast(
+//                    context,
+//                    0,
+//                    alarmIntent,
+//                    PendingIntent.FLAG_CANCEL_CURRENT
+//                )
+//
+//                if (Build.VERSION.SDK_INT >= 23) {
+//                    alarmManager.setExactAndAllowWhileIdle(
+//                        AlarmManager.RTC_WAKEUP,
+//                        calendar.timeInMillis,
+//                        pendingIntent
+//                    )
+//                } else {
+//                    if (Build.VERSION.SDK_INT >= 21) {
+//                        alarmManager.setExact(
+//                            AlarmManager.RTC_WAKEUP,
+//                            calendar.timeInMillis,
+//                            pendingIntent
+//                        )
+//                    } else {
+//                        alarmManager.set(
+//                            AlarmManager.RTC_WAKEUP,
+//                            calendar.timeInMillis,
+//                            pendingIntent
+//                        )
+//                    }
+//                }
             }
         }
 
@@ -175,3 +185,4 @@ class KoreanQuizVM @ViewModelInject constructor(
 
 
 }
+
