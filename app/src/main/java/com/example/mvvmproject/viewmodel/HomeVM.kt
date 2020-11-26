@@ -21,6 +21,7 @@ import com.example.mvvmproject.util.TimeWorker
 import com.example.mvvmproject.viewmodel.KoreanQuizVM.Companion.ALARM_CALL_ACTION
 import kotlinx.coroutines.launch
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class HomeVM @ViewModelInject constructor(
     application: Application,
@@ -34,12 +35,25 @@ class HomeVM @ViewModelInject constructor(
     val putIncorrectCntResLv = MutableLiveData<Int>()
 
 
+    val workManager = WorkManager.getInstance(context)
+
+
+
+    val request = OneTimeWorkRequestBuilder<TimeWorker>()
+//        .setInitialDelay(1000L, TimeUnit.MILLISECONDS)
+        .addTag("Time_Limit")
+        .build()
+    val workInfoLiveData: LiveData<WorkInfo> = workManager.getWorkInfoByIdLiveData(request.id)
+
+
     init {
         viewUpdate()
         getIncorrectCount()
     }
 
-
+     fun startWork(){
+        workManager.enqueue(request)
+    }
 
     private fun viewUpdate() {
         viewModelScope.launch {
@@ -99,4 +113,12 @@ class HomeVM @ViewModelInject constructor(
             putIncorrectCntResLv.value = putZeroCntRes
         }
     }
+    fun putLimitTime() {
+        val dueDate = Calendar.getInstance()
+        dueDate.add(Calendar.MINUTE, 1)
+        viewModelScope.launch {
+            val res = service.putDate()
+        }
+    }
+
 }

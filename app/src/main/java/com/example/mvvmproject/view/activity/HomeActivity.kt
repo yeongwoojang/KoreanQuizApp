@@ -15,6 +15,7 @@ import com.example.mvvmproject.viewmodel.HomeVM
 import com.example.mvvmproject.viewmodel.RegisterVM
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.fragment_quiz.*
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
@@ -23,11 +24,17 @@ class HomeActivity : AppCompatActivity() {
         private val TAG = this::class.java.simpleName
     }
 
-    val intent2 = getIntent()
+
     val userViewModel by viewModels<HomeVM>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        val intentFromQuiz = intent
+        if(intentFromQuiz.getIntExtra("incorrectCount",0)==3){
+            Toast.makeText(this,"Success!",Toast.LENGTH_SHORT).show()
+            userViewModel.putLimitTime()
+            userViewModel.startWork()
+        }
 
         var canStart = true
 
@@ -79,8 +86,7 @@ class HomeActivity : AppCompatActivity() {
 
         userViewModel.incorrectCountLiveData.observe(this, Observer {
             if (it == 3) {
-//                canStart = false
-//                userViewModel.startLongTask()
+                canStart = false
             }
             else canStart = true
         })
@@ -94,7 +100,11 @@ class HomeActivity : AppCompatActivity() {
                 finish()
             } else Toast.makeText(this, "30분 후에 문제를 풀 수 있습니다.", Toast.LENGTH_SHORT).show()
         }
-
+        userViewModel.workInfoLiveData.observe(this, Observer {
+            workInfo-> if(workInfo.state == WorkInfo.State.SUCCEEDED){
+            Toast.makeText(this,"finish!!",Toast.LENGTH_SHORT).show()
+        }
+        })
     }
 
 }

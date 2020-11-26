@@ -56,15 +56,11 @@ interface ServiceAPI {
     @GET("json/KoreanAnswerInfo/1/476")
     suspend fun getKoreanQuiz(): KoreanQuizeInfo
 
-
-
-
-    @PUT("test/test")
-    suspend fun test() :String
-
     @GET("test/getTest")
     suspend fun getTest() :TestModel
 
+    @PUT("test/putDate")
+    suspend fun putDate() : String
 
 
 

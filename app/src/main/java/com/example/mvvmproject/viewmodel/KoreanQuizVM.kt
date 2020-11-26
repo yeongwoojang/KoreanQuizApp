@@ -24,6 +24,7 @@ import com.example.mvvmproject.util.TimeWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class KoreanQuizVM @ViewModelInject constructor(
     application: Application,
@@ -42,14 +43,7 @@ class KoreanQuizVM @ViewModelInject constructor(
     val incorrectCountLiveData = MutableLiveData<Int>()
     val putIncorrectCntResLv = MutableLiveData<Int>()
 
-    val workManager = WorkManager.getInstance(context)
 
-
-    val inputData = Data.Builder()
-        .putInt("count",3)
-        .build()
-    val request = OneTimeWorkRequestBuilder<TimeWorker>().setInputData(inputData).build()
-    val workInfoLiveData: LiveData<WorkInfo> = workManager.getWorkInfoByIdLiveData(request.id)
 
     companion object {
         val TAG = this::class.simpleName
@@ -62,9 +56,6 @@ class KoreanQuizVM @ViewModelInject constructor(
         viewUpdate()
         getIncorrectCount()
 
-    }
-    fun startLongTask() {
-        workManager.enqueueUniqueWork("test",	ExistingWorkPolicy.REPLACE,request)
     }
     //퀴즈목록 받아오기
     private fun getQuizList() {
@@ -129,39 +120,6 @@ class KoreanQuizVM @ViewModelInject constructor(
                 Log.d("TEST", "getIncorrectCount: OK")
                 val calendar = Calendar.getInstance()
                 calendar.add(Calendar.MINUTE, 1)
-
-
-//                val alarmIntent = Intent(ALARM_CALL_ACTION)
-//
-//                val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-//                val pendingIntent = PendingIntent.getBroadcast(
-//                    context,
-//                    0,
-//                    alarmIntent,
-//                    PendingIntent.FLAG_CANCEL_CURRENT
-//                )
-//
-//                if (Build.VERSION.SDK_INT >= 23) {
-//                    alarmManager.setExactAndAllowWhileIdle(
-//                        AlarmManager.RTC_WAKEUP,
-//                        calendar.timeInMillis,
-//                        pendingIntent
-//                    )
-//                } else {
-//                    if (Build.VERSION.SDK_INT >= 21) {
-//                        alarmManager.setExact(
-//                            AlarmManager.RTC_WAKEUP,
-//                            calendar.timeInMillis,
-//                            pendingIntent
-//                        )
-//                    } else {
-//                        alarmManager.set(
-//                            AlarmManager.RTC_WAKEUP,
-//                            calendar.timeInMillis,
-//                            pendingIntent
-//                        )
-//                    }
-//                }
             }
         }
 
@@ -182,6 +140,15 @@ class KoreanQuizVM @ViewModelInject constructor(
         }
 
     }
+    fun getTimeUsingWorkRequest() : Long{
+        val currentDate = Calendar.getInstance()
+        val dueDate = Calendar.getInstance()
+
+        dueDate.add(Calendar.SECOND, 5)
+        return dueDate.timeInMillis - currentDate.timeInMillis
+    }
+
+
 
 
 }

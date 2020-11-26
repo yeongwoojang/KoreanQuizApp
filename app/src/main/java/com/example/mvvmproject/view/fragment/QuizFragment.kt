@@ -1,6 +1,7 @@
 package com.example.mvvmproject.view.fragment
 
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
@@ -16,10 +17,12 @@ import androidx.appcompat.app.AppCompatDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.work.WorkInfo
 import com.example.mvvmproject.R
 import com.example.mvvmproject.databinding.FragmentQuizBinding
+import com.example.mvvmproject.view.activity.HomeActivity
 import com.example.mvvmproject.view.activity.LoadingActivity
 import com.example.mvvmproject.view.dialog.CompleteDialog
 import com.example.mvvmproject.viewmodel.KoreanQuizVM
@@ -35,7 +38,7 @@ class QuizFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-
+    val fragment = this.targetFragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -87,7 +90,7 @@ class QuizFragment : Fragment() {
                     dialog.isCancelable = false
                     dialog.show(childFragmentManager, "NoticeDialogFragment")
                     viewModel.restartIncorrectCnt()
-                }else{
+                } else {
                     viewModel.putIncorrectCount()
                 }
             })
@@ -98,33 +101,33 @@ class QuizFragment : Fragment() {
         })
 
         viewModel.putIncorrectCntResLv.observe(requireActivity(), androidx.lifecycle.Observer {
-            if(it==200){
+            if (it == 200) {
                 viewModel.getIncorrectCount()
             }
         })
 
         viewModel.incorrectCountLiveData.observe(requireActivity(), androidx.lifecycle.Observer {
             incorrect_cnt.text = "틀린 횟수 : ${it}번"
-            if (it==3){
-                viewModel.startLongTask()
+            if (it == 3) {
+                val intent = Intent(requireActivity(),HomeActivity::class.java)
+                intent.putExtra("incorrectCount",3)
+                startActivity(intent)
+                requireActivity().finish()
                 oneBt.isClickable = false
                 twoBt.isClickable = false
                 threeBt.isClickable = false
                 fourBt.isClickable = false
 
-            }else{
+            } else {
                 oneBt.isClickable = true
                 twoBt.isClickable = true
                 threeBt.isClickable = true
                 fourBt.isClickable = true
             }
         })
-        viewModel.workInfoLiveData.observe(requireActivity(), androidx.lifecycle.Observer {
-            workInfo ->
-            if(workInfo.state== WorkInfo.State.SUCCEEDED){
-                Toast.makeText(requireContext(),"success!!",Toast.LENGTH_SHORT).show()
-            }
-        })
+
+
     }
+
 
 }
