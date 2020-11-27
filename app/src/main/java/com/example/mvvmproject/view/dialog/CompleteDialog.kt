@@ -3,11 +3,13 @@ package com.example.mvvmproject.view.dialog
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Point
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
@@ -30,12 +32,14 @@ class CompleteDialog(private val yesClick: (Boolean) -> Unit) : DialogFragment()
         }
     }
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        getDialog()!!.getWindow()?.setBackgroundDrawableResource(R.drawable.form_complete_dialog);
+        dialog!!.window?.setBackgroundDrawableResource(R.drawable.form_complete_dialog);
         val view = inflater.inflate(R.layout.dialog_complete, container, false)
 
         view.next_quiz.setOnClickListener {
@@ -44,14 +48,13 @@ class CompleteDialog(private val yesClick: (Boolean) -> Unit) : DialogFragment()
         }
         return view
     }
-    override fun onStart() {
-        super.onStart()
-        val width = (resources.displayMetrics.widthPixels * 0.85).toInt()
-        val height = (resources.displayMetrics.heightPixels * 0.40).toInt()
-        dialog!!.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+    override fun onResume() {
+        super.onResume()
+        val width = (resources.displayMetrics.widthPixels * 0.90).toInt()
+        val height = (resources.displayMetrics.heightPixels * 0.20).toInt()
+        dialog!!.window?.setLayout(width,height)
     }
-    override fun dismiss() {
-        super.dismiss()
-    }
+
 
 }

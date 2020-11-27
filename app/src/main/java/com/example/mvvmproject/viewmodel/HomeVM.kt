@@ -68,7 +68,6 @@ class HomeVM @ViewModelInject constructor(
             val incorrectCntInfo = service.getIncorrectCount().incorrectCount
             incorrectCountLiveData.value = incorrectCntInfo
             if (incorrectCountLiveData.value == 3) {
-                Log.d("TEST", "getIncorrectCount: OK")
                 val calendar = Calendar.getInstance()
                 calendar.add(Calendar.MINUTE, 1)
 
@@ -115,9 +114,9 @@ class HomeVM @ViewModelInject constructor(
     }
     fun putLimitTime() {
         val dueDate = Calendar.getInstance()
-        dueDate.add(Calendar.MINUTE, 1)
+        dueDate.add(Calendar.MINUTE, 10)
         viewModelScope.launch {
-            val res = service.putDate()
+            val res = service.putTimeLimit()
         }
     }
 

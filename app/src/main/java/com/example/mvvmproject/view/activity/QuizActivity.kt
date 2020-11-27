@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_quiz.*
 
 
 @AndroidEntryPoint
-class QuizActivity : AppCompatActivity(){
+class QuizActivity : AppCompatActivity() {
 
     companion object {
         val TAG = this::class.java.simpleName
@@ -25,20 +25,24 @@ class QuizActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_quiz)
-       val binding = DataBindingUtil.setContentView<ActivityQuizBinding>(this,R.layout.activity_quiz)
+        setContentView(R.layout.activity_quiz)
+//       val binding = DataBindingUtil.setContentView<ActivityQuizBinding>(this,R.layout.activity_quiz)
 
-        binding.lifecycleOwner = this
+//        binding.lifecycleOwner = this
         val viewModel by viewModels<KoreanQuizVM>()
-        binding.viewModel = viewModel
+//        binding.viewModel = viewModel
 
 
         home_bt.setOnClickListener {
-            val intent = Intent(this,HomeActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             finish()
         }
+        viewModel.usersQuizLiveData.observe(this, Observer { usersQuizInfo ->
+            quiz_no.text = (usersQuizInfo.quizSeq / 4 + 1).toString()
+            score_text.text = usersQuizInfo.score.toString()
+        })
     }
 
 }

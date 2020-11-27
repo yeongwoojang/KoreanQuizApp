@@ -1,34 +1,25 @@
 package com.example.mvvmproject.view.fragment
 
-import android.app.Activity
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.AnimationDrawable
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.work.WorkInfo
 import com.example.mvvmproject.R
 import com.example.mvvmproject.databinding.FragmentQuizBinding
 import com.example.mvvmproject.view.activity.HomeActivity
 import com.example.mvvmproject.view.activity.LoadingActivity
 import com.example.mvvmproject.view.dialog.CompleteDialog
+import com.example.mvvmproject.view.dialog.WrongAnswerDialog
 import com.example.mvvmproject.viewmodel.KoreanQuizVM
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_quiz.*
-import java.util.*
 
 
 @AndroidEntryPoint
@@ -58,9 +49,17 @@ class QuizFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //정답을 맞췄을 시 화면을 갱신해준다.
-        val dialog = CompleteDialog.getInstance(yesClick = { yesClick ->
+        val correctDialog = CompleteDialog.getInstance(yesClick = { yesClick ->
             if (yesClick) {
                 viewModel.viewUpdate()
+            }
+        })
+        val wrongDialog = WrongAnswerDialog.getInstance(okClick = {okClick->
+            if(okClick){
+                val intent = Intent(requireActivity(),HomeActivity::class.java)
+                intent.putExtra("incorrectCount",3)
+                startActivity(intent)
+                requireActivity().finish()
             }
         })
 
@@ -87,8 +86,8 @@ class QuizFragment : Fragment() {
             androidx.lifecycle.Observer { complete ->
                 if (complete) {
                     viewModel.updateScore()
-                    dialog.isCancelable = false
-                    dialog.show(childFragmentManager, "NoticeDialogFragment")
+                    correctDialog.isCancelable = false
+                    correctDialog.show(childFragmentManager, "CorrectDialog")
                     viewModel.restartIncorrectCnt()
                 } else {
                     viewModel.putIncorrectCount()
@@ -109,20 +108,10 @@ class QuizFragment : Fragment() {
         viewModel.incorrectCountLiveData.observe(requireActivity(), androidx.lifecycle.Observer {
             incorrect_cnt.text = "틀린 횟수 : ${it}번"
             if (it == 3) {
-                val intent = Intent(requireActivity(),HomeActivity::class.java)
-                intent.putExtra("incorrectCount",3)
-                startActivity(intent)
-                requireActivity().finish()
-                oneBt.isClickable = false
-                twoBt.isClickable = false
-                threeBt.isClickable = false
-                fourBt.isClickable = false
+                wrongDialog.isCancelable =false
+                wrongDialog.show(childFragmentManager,"WrongDialog")
+            }else{
 
-            } else {
-                oneBt.isClickable = true
-                twoBt.isClickable = true
-                threeBt.isClickable = true
-                fourBt.isClickable = true
             }
         })
 

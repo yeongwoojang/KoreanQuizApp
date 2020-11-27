@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable
-            name="viewModel"
-            type="com.example.mvvmproject.viewmodel.KoreanQuizVM" />
-    </data>
 
     <LinearLayout
-
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -29,12 +23,13 @@
                 android:src="@drawable/baseline_home_24" />
 
             <TextView
+                android:id="@+id/score_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/be_euljiro"
-                android:text="@{String.valueOf(viewModel.usersQuizLiveData.score)}"
-                />
+                android:fontFamily="@font/be_euljiro"/>
+<!--                android:text="@{String.valueOf(viewModel.usersQuizLiveData.score)}"-->
+<!--                />-->
             <!--                android:text="@{viewModel.scoreLiveData.toString()}" />-->
             <TextView
                 android:layout_width="wrap_content"
@@ -48,9 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginRight="20dp"
-                android:fontFamily="@font/be_euljiro"
-                android:text="@{String.valueOf(viewModel.usersQuizLiveData.quizSeq/4)}"
-                />
+                android:fontFamily="@font/be_euljiro"/>
+<!--                android:text="@{String.valueOf(viewModel.usersQuizLiveData.quizSeq/4)}"-->
+<!--                />-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,174 +62,4 @@
         android:layout_height="match_parent"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
-
-    <!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_margin="10dp">-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="10dp"-->
-<!--                android:orientation="vertical">-->
-
-
-<!--                <TextView-->
-<!--                    android:id="@+id/quiz_title"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginBottom="50dp"-->
-<!--                    android:fontFamily="@font/be_euljiro"-->
-<!--                    android:textSize="20dp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:text="@{viewModel.quizLiveData[viewModel.usersQuizLiveData.quizSeq].q_name}"-->
-<!--                    />-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="7"-->
-<!--                        android:fontFamily="@font/be_euljiro"-->
-<!--                        android:text="일번."-->
-<!--                        android:textColor="@color/black"/>-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/quiz_no1"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginBottom="5dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:fontFamily="@font/be_euljiro"-->
-<!--                        android:text="@{viewModel.quizLiveData[viewModel.usersQuizLiveData.quizSeq].a_name}"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="15dp" />-->
-<!--                </LinearLayout>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="7"-->
-<!--                        android:fontFamily="@font/be_euljiro"-->
-<!--                        android:text="이번."-->
-<!--                        android:textColor="@color/black"/>-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/quiz_no2"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginBottom="5dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:fontFamily="@font/be_euljiro"-->
-<!--                        android:text="@{viewModel.quizLiveData[viewModel.usersQuizLiveData.quizSeq+1].a_name}"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="15dp" />-->
-<!--                </LinearLayout>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="7"-->
-<!--                        android:fontFamily="@font/be_euljiro"-->
-<!--                        android:text="삼번."-->
-<!--                        android:textColor="@color/black" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/quiz_no3"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginBottom="5dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:fontFamily="@font/be_euljiro"-->
-<!--                        android:text="@{viewModel.quizLiveData[viewModel.usersQuizLiveData.quizSeq+2].a_name}"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="15dp" />-->
-<!--                </LinearLayout>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="7"-->
-<!--                        android:fontFamily="@font/be_euljiro"-->
-<!--                        android:text="사번"-->
-<!--                        android:textColor="@color/black" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/quiz_no4"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:fontFamily="@font/be_euljiro"-->
-<!--                        android:text="@{viewModel.quizLiveData[viewModel.usersQuizLiveData.quizSeq+3].a_name}"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:layout_marginBottom="50dp"-->
-<!--                        android:textSize="15dp" />-->
-<!--                </LinearLayout>-->
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:gravity="center"-->
-<!--                    >-->
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/oneBt"-->
-<!--                        android:layout_width="80dp"-->
-<!--                        android:layout_height="80dp"-->
-<!--                        android:onClick="@{()->viewModel.isCorrectAnswer(viewModel.quizLiveData[viewModel.usersQuizLiveData.quizSeq].a_name)}"-->
-<!--                        android:scaleType="fitXY"-->
-<!--                        android:background="@color/transparent"-->
-<!--                        android:src="@drawable/baseline_looks_one_24"-->
-<!--                        />-->
-
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/twoBt"-->
-<!--                        android:layout_width="80dp"-->
-<!--                        android:layout_height="80dp"-->
-<!--                        android:background="@color/transparent"-->
-<!--                        android:onClick="@{()->viewModel.isCorrectAnswer(viewModel.quizLiveData[viewModel.usersQuizLiveData.quizSeq+1].a_name)}"-->
-<!--                        android:scaleType="fitXY"-->
-<!--                        android:src="@drawable/baseline_looks_two_24"/>-->
-
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/threeBt"-->
-<!--                        android:layout_width="80dp"-->
-<!--                        android:layout_height="80dp"-->
-<!--                        android:onClick="@{()->viewModel.isCorrectAnswer(viewModel.quizLiveData[viewModel.usersQuizLiveData.quizSeq+2].a_name)}"-->
-<!--                        android:scaleType="fitXY"-->
-<!--                        android:background="@color/transparent"-->
-<!--                        android:src="@drawable/baseline_looks_3_24"-->
-<!--                        />-->
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/fourBt"-->
-<!--                        android:layout_width="80dp"-->
-<!--                        android:layout_height="80dp"-->
-<!--                        android:onClick="@{()->viewModel.isCorrectAnswer(viewModel.quizLiveData[viewModel.usersQuizLiveData.quizSeq+3].a_name)}"-->
-<!--                        android:scaleType="fitXY"-->
-<!--                        android:background="@color/transparent"-->
-<!--                        android:src="@drawable/baseline_looks_4_24"-->
-<!--                        />-->
-<!--                </LinearLayout>-->
-<!--            </LinearLayout>-->
-<!--        </androidx.cardview.widget.CardView>-->
     </LinearLayout>
-</layout>

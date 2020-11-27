@@ -6,5 +6,7 @@
     <string name="register_comment">우리말 문제 앱에 오신걸 환영합니다.</string>
     <string name="go_to_main">메인화면으로 돌아가기</string>
     <string name="CompleteMessage">축하합니다!!\n\n모든 문제를 다 푸셨습니다.</string>
+    <string name="time_limit_message">10분 후에 다시 시도해보세요!</string>
+    <string name="correct_message">정답입니다!</string>
 </resources>
 

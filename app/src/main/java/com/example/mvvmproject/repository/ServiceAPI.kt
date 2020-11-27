@@ -33,36 +33,34 @@ interface ServiceAPI {
     ): RegsRes
 
     @PUT("/korQuiz/scoreUpdate")
-    suspend fun updateScore() :String
+    suspend fun updateScore(): String
 
     @GET("/korQuiz/getScore")
-    suspend fun updateView() : UsersQuizInfo
+    suspend fun updateView(): UsersQuizInfo
 
 
     @POST("/quiz/quizNo")
     suspend fun getQuizNo(): QuizDate
 
     @GET("/korQuiz/incorrectCnt")
-    suspend fun getIncorrectCount() : IncorrectCount
+    suspend fun getIncorrectCount(): IncorrectCount
 
     @PUT("KorQuiz/plusIncorrectCnt")
-    suspend fun putIncorrectCount() : String
+    suspend fun putIncorrectCount(): String
 
     @PUT("KorQuiz/restartIncorrectCnt")
-    suspend fun restartIncorrectCount() : String
-
+    suspend fun restartIncorrectCount(): String
 
 
     @GET("json/KoreanAnswerInfo/1/476")
     suspend fun getKoreanQuiz(): KoreanQuizeInfo
 
-    @GET("test/getTest")
-    suspend fun getTest() :TestModel
+    @GET("KorQuiz/getTimeLimit")
+    suspend fun getTimeLimit(): TimeLimit
 
-    @PUT("test/putDate")
-    suspend fun putDate() : String
+    @PUT("KorQuiz/putTimeLimit")
+    suspend fun putTimeLimit(): String
 
-
-
-
+    @GET("KorQuiz/rank")
+    suspend fun getRanking() :RankInfo
 }

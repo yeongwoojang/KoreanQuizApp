@@ -1,36 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/form_complete_dialog"
+    android:layout_height="match_parent"
     android:orientation="vertical">
+        <TextView
+            android:id="@+id/complete_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/be_euljiro"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/correct_message"
+            android:textColor="@color/brwon800"
+            android:textSize="25dp" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:padding="20dp"
-        android:background="@color/transparent"
-        android:src="@drawable/baseline_check_circle_outline_24" />
-
-    <TextView
-        android:id="@+id/complete_txt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/be_euljiro"
-        android:gravity="center"
-        android:text="정답입니다!"
-        android:layout_marginBottom="15dp"
-        android:textColor="@color/yellow700"
-        android:textSize="25dp" />
-
-    <Button
-        android:id="@+id/next_quiz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/transparent"
-        android:fontFamily="@font/be_euljiro"
-        android:textSize="25dp"
-        android:text="다음으로"
-        android:textColor="@color/black" />
-</LinearLayout>
+        <Button
+            android:id="@+id/next_quiz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/appMainColor"
+            android:fontFamily="@font/be_euljiro"
+            android:text="다음으로"
+            android:textColor="@color/brwon800"
+            android:textSize="25dp" />
+</RelativeLayout>

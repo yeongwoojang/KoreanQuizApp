@@ -31,8 +31,8 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         val intentFromQuiz = intent
         if(intentFromQuiz.getIntExtra("incorrectCount",0)==3){
-            Toast.makeText(this,"Success!",Toast.LENGTH_SHORT).show()
             userViewModel.putLimitTime()
+            Log.d("TAG", "startWork(): start ")
             userViewModel.startWork()
         }
 
@@ -61,6 +61,8 @@ class HomeActivity : AppCompatActivity() {
             var id = menuItem.itemId
             when (id) {
                 R.id.ranking -> {
+                    val intent = Intent(this, RankingActivity::class.java)
+                    startActivity(intent)
                 }
                 R.id.logout -> {
                     viewModel.removeCookies()
@@ -98,13 +100,9 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(intent)
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 finish()
-            } else Toast.makeText(this, "30분 후에 문제를 풀 수 있습니다.", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this, "10분 후에 문제를 풀 수 있습니다.", Toast.LENGTH_SHORT).show()
         }
-        userViewModel.workInfoLiveData.observe(this, Observer {
-            workInfo-> if(workInfo.state == WorkInfo.State.SUCCEEDED){
-            Toast.makeText(this,"finish!!",Toast.LENGTH_SHORT).show()
-        }
-        })
+
     }
 
 }

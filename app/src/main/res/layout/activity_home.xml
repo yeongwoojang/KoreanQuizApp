@@ -61,20 +61,19 @@
                android:fontFamily="@font/be_euljiro"
               />
        </LinearLayout>
+
         <Button
             android:id="@+id/start_bt"
             android:layout_width="150dp"
             android:layout_height="80dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginBottom="10dp"
-            android:text="시작하기"
-            android:textSize="20dp"
-            android:fontFamily="@font/be_euljiro"
             android:background="@drawable/form_start_button"
-            />
+            android:fontFamily="@font/be_euljiro"
+            android:text="시작하기"
+            android:textSize="20dp" />
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView

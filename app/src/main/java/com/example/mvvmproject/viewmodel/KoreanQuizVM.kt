@@ -108,6 +108,8 @@ class KoreanQuizVM @ViewModelInject constructor(
     fun viewUpdate() {
         viewModelScope.launch {
             val usersQuizInfo = customService.updateView()
+            if (usersQuizInfo.quizSeq==0){
+            }
             usersQuizLiveData.value = usersQuizInfo
         }
     }
@@ -117,9 +119,7 @@ class KoreanQuizVM @ViewModelInject constructor(
             val incorrectCntInfo = customService.getIncorrectCount().incorrectCount
             incorrectCountLiveData.value = incorrectCntInfo
             if (incorrectCountLiveData.value == 3) {
-                Log.d("TEST", "getIncorrectCount: OK")
-                val calendar = Calendar.getInstance()
-                calendar.add(Calendar.MINUTE, 1)
+
             }
         }
 
@@ -140,16 +140,5 @@ class KoreanQuizVM @ViewModelInject constructor(
         }
 
     }
-    fun getTimeUsingWorkRequest() : Long{
-        val currentDate = Calendar.getInstance()
-        val dueDate = Calendar.getInstance()
-
-        dueDate.add(Calendar.SECOND, 5)
-        return dueDate.timeInMillis - currentDate.timeInMillis
-    }
-
-
-
-
 }
 
