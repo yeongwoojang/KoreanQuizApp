@@ -1,5 +1,6 @@
 package com.example.mvvmproject.view.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -28,7 +29,12 @@ class RankingActivity : AppCompatActivity() {
             this.layoutManager = LinearLayoutManager(this@RankingActivity, RecyclerView.VERTICAL,false)
             this.adapter = adapter
         }
-
+        home_bt.setOnClickListener {
+            val intent = Intent(this@RankingActivity,HomeActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.right_in,R.anim.left_out);
+            finish()
+        }
         viewModel.apply {
             this.itemLiveData.observe(this@RankingActivity, Observer {
                 adapter.updateItems(it)

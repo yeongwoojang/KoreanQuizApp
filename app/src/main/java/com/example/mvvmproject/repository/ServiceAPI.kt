@@ -61,6 +61,9 @@ interface ServiceAPI {
     @PUT("KorQuiz/putTimeLimit")
     suspend fun putTimeLimit(): String
 
+    @PUT("KorQuiz/deleteTimeLimit")
+    suspend fun deleteTimeLimit() : String
+
     @GET("KorQuiz/rank")
     suspend fun getRanking() :RankInfo
 }

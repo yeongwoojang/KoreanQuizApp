@@ -7,11 +7,11 @@
         ></corners>
 
     <stroke
-        android:color="@color/appThirdColor"
+        android:width="10dp"
+        android:color="@color/white"
         ></stroke>
     <solid
-        android:color="@color/appThirdColor"
+        android:color="@color/white"
         ></solid>
-
 
 </shape>

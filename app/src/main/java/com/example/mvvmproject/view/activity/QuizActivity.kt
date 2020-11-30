@@ -36,7 +36,7 @@ class QuizActivity : AppCompatActivity() {
         home_bt.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            overridePendingTransition(R.anim.right_in,R.anim.left_out);
             finish()
         }
         viewModel.usersQuizLiveData.observe(this, Observer { usersQuizInfo ->

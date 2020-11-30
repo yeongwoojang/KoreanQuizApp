@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/style_main"
     tools:context=".view.activity.RankingActivity">
 
     <RelativeLayout
@@ -41,6 +42,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
+            android:background="@color/transparent"
             >
             <TextView
                 android:layout_width="match_parent"
@@ -77,6 +79,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
             android:layout_below="@+id/ranking_layout"
+            android:background="@color/transparent"
             />
     </RelativeLayout>
 </LinearLayout>

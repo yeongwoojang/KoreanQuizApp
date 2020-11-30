@@ -6,7 +6,11 @@
             name="rank"
             type="com.example.mvvmproject.model.vo.RankRow"/>
     </data>
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,6 +24,7 @@
             android:fontFamily="@font/be_euljiro"
             android:text="@{String.valueOf(rank.rank)}"
             android:textColor="@color/black"
+            android:gravity="center_vertical"
             android:textSize="15dp" />
 
         <TextView
@@ -29,6 +34,7 @@
             android:fontFamily="@font/be_euljiro"
             android:text="@{rank.userId}"
             android:textColor="@color/black"
+            android:gravity="center_vertical"
             android:textSize="15dp" />
 
         <TextView
@@ -38,6 +44,14 @@
             android:fontFamily="@font/be_euljiro"
             android:text="@{String.valueOf(rank.userScore)}"
             android:textColor="@color/black"
+            android:gravity="center_vertical"
             android:textSize="15dp" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray50"
+        android:layout_marginTop="5dp"
+        />
+</LinearLayout>
 </layout>

@@ -1,14 +1,11 @@
 package com.example.mvvmproject.viewmodel
 
-import android.content.Context
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mvvmproject.App
 import com.example.mvvmproject.di.qualifier.CustomClient
-import com.example.mvvmproject.model.vo.IdCheckRes
 import com.example.mvvmproject.model.vo.RegsRes
 import com.example.mvvmproject.repository.ServiceAPI
 import com.example.mvvmproject.util.HashSecurity
@@ -80,6 +77,6 @@ class RegisterVM @ViewModelInject constructor(
 
 
     fun removeCookies() {
-        prefs.remoceCookies()
+        prefs.removeCookies()
     }
 }

@@ -22,7 +22,7 @@ class SharedPreference(context: Context) {
         return prefs.getStringSet("cookies", HashSet<String>())
     }
 
-    fun remoceCookies(){
+    fun removeCookies(){
         prefs.edit().remove("cookies").apply()
     }
 }

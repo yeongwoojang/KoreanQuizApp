@@ -29,12 +29,12 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val intentFromQuiz = intent
-        if(intentFromQuiz.getIntExtra("incorrectCount",0)==3){
-            userViewModel.putLimitTime()
-            Log.d("TAG", "startWork(): start ")
-            userViewModel.startWork()
-        }
+//        val intentFromQuiz = intent
+//        if(intentFromQuiz.getIntExtra("incorrectCount",0)==3){
+//            userViewModel.putLimitTime()
+//            Log.d("TAG", "startWork(): start ")
+//            userViewModel.startWork()
+//        }
 
         var canStart = true
 
@@ -44,7 +44,7 @@ class HomeActivity : AppCompatActivity() {
 
 
         val userId = viewModel.getLoginSession()
-        user_id.text = "${userId} 님 환영합니다."
+        user_id.text = "${userId}"
         userViewModel.usersQuizLiveData.observe(this, Observer {
             if (it.code == 200) {
                 user_score.text = if (it.score != 1000) "현재 점수는 ${it.score}점 입니다."
@@ -63,6 +63,8 @@ class HomeActivity : AppCompatActivity() {
                 R.id.ranking -> {
                     val intent = Intent(this, RankingActivity::class.java)
                     startActivity(intent)
+                    overridePendingTransition(R.anim.right_in,R.anim.left_out);
+                    finish()
                 }
                 R.id.logout -> {
                     viewModel.removeCookies()
@@ -88,17 +90,22 @@ class HomeActivity : AppCompatActivity() {
 
         userViewModel.incorrectCountLiveData.observe(this, Observer {
             if (it == 3) {
+                userViewModel.startWork()
                 canStart = false
             }
             else canStart = true
         })
-
+        userViewModel.workInfoLiveData.observe(this, Observer {
+            if(it.outputData.getBoolean("output",false)){
+                canStart = true
+            }
+        })
 
         start_bt.setOnClickListener {
             if (canStart) {
                 val intent = Intent(this, QuizActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                overridePendingTransition(R.anim.right_in,R.anim.left_out);
                 finish()
             } else Toast.makeText(this, "10분 후에 문제를 풀 수 있습니다.", Toast.LENGTH_SHORT).show()
         }

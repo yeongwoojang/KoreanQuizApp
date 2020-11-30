@@ -18,10 +18,8 @@ import com.example.mvvmproject.model.vo.UsersQuizInfo
 import com.example.mvvmproject.repository.ServiceAPI
 import com.example.mvvmproject.util.AlarmBroadcastReceiver
 import com.example.mvvmproject.util.TimeWorker
-import com.example.mvvmproject.viewmodel.KoreanQuizVM.Companion.ALARM_CALL_ACTION
 import kotlinx.coroutines.launch
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class HomeVM @ViewModelInject constructor(
     application: Application,
@@ -38,7 +36,6 @@ class HomeVM @ViewModelInject constructor(
     val workManager = WorkManager.getInstance(context)
 
 
-
     val request = OneTimeWorkRequestBuilder<TimeWorker>()
 //        .setInitialDelay(1000L, TimeUnit.MILLISECONDS)
         .addTag("Time_Limit")
@@ -51,7 +48,7 @@ class HomeVM @ViewModelInject constructor(
         getIncorrectCount()
     }
 
-     fun startWork(){
+    fun startWork() {
         workManager.enqueue(request)
     }
 
@@ -67,45 +64,8 @@ class HomeVM @ViewModelInject constructor(
         viewModelScope.launch {
             val incorrectCntInfo = service.getIncorrectCount().incorrectCount
             incorrectCountLiveData.value = incorrectCntInfo
-            if (incorrectCountLiveData.value == 3) {
-                val calendar = Calendar.getInstance()
-                calendar.add(Calendar.MINUTE, 1)
-
-
-                val alarmIntent = Intent(context, AlarmBroadcastReceiver::class.java)
-                val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                val pendingIntent = PendingIntent.getBroadcast(
-                    context,
-                    0,
-                    alarmIntent,
-                    PendingIntent.FLAG_CANCEL_CURRENT
-                )
-
-                if (Build.VERSION.SDK_INT >= 23) {
-                    alarmManager.setExactAndAllowWhileIdle(
-                        AlarmManager.RTC_WAKEUP,
-                        calendar.timeInMillis,
-                        pendingIntent
-                    )
-                } else {
-                    if (Build.VERSION.SDK_INT >= 21) {
-                        alarmManager.setExact(
-                            AlarmManager.RTC_WAKEUP,
-                            calendar.timeInMillis,
-                            pendingIntent
-                        )
-                    } else {
-                        alarmManager.set(
-                            AlarmManager.RTC_WAKEUP,
-                            calendar.timeInMillis,
-                            pendingIntent
-                        )
-                    }
-                }
-            }
         }
     }
-
     fun restartIncorrectCount() {
         viewModelScope.launch {
             val putZeroCntRes = service.restartIncorrectCount().toInt()
@@ -113,11 +73,8 @@ class HomeVM @ViewModelInject constructor(
         }
     }
     fun putLimitTime() {
-        val dueDate = Calendar.getInstance()
-        dueDate.add(Calendar.MINUTE, 10)
         viewModelScope.launch {
             val res = service.putTimeLimit()
         }
     }
-
 }

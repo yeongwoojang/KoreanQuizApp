@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mvvmproject.R
 import com.example.mvvmproject.databinding.FragmentQuizBinding
@@ -16,6 +17,7 @@ import com.example.mvvmproject.view.activity.HomeActivity
 import com.example.mvvmproject.view.activity.LoadingActivity
 import com.example.mvvmproject.view.dialog.CompleteDialog
 import com.example.mvvmproject.view.dialog.WrongAnswerDialog
+import com.example.mvvmproject.viewmodel.HomeVM
 import com.example.mvvmproject.viewmodel.KoreanQuizVM
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_home.*
@@ -25,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_quiz.*
 @AndroidEntryPoint
 class QuizFragment : Fragment() {
     val viewModel by activityViewModels<KoreanQuizVM>()
+    val userViewModel by viewModels<HomeVM>()
     var score = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,8 +60,10 @@ class QuizFragment : Fragment() {
         val wrongDialog = WrongAnswerDialog.getInstance(okClick = {okClick->
             if(okClick){
                 val intent = Intent(requireActivity(),HomeActivity::class.java)
-                intent.putExtra("incorrectCount",3)
+//                intent.putExtra("incorrectCount",3)
+                userViewModel.putLimitTime()
                 startActivity(intent)
+                requireActivity().overridePendingTransition(R.anim.right_in,R.anim.left_out);
                 requireActivity().finish()
             }
         })

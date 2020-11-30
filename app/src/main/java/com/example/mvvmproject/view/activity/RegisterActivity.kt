@@ -76,8 +76,10 @@ class RegisterActivity : AppCompatActivity() {
         })
 
         go_to_main_text.setOnClickListener {
+            val intent = Intent(this@RegisterActivity,MainActivity::class.java)
+            startActivity(intent)
             finish()
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            overridePendingTransition(R.anim.left_in,R.anim.right_out);
         }
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/style_registerpage"
+    android:background="@drawable/style_main"
     tools:context=".view.activity.LoginActivity"
     android:orientation="vertical"
     >
@@ -77,7 +77,7 @@
             android:textColor="@color/gray50"
             android:gravity="end"
             android:layout_marginBottom="100dp"
-            ></TextView>
+            />
 
         <TextView
             android:id="@+id/go_to_main_text"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/appMainColor"
+    android:background="@drawable/style_main"
     tools:context=".view.activity.MainActivity">
 
 
@@ -21,9 +21,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/bm_euljiro_10yearslater"
+                android:fontFamily="@font/be_euljiro"
                 android:gravity="center"
-                android:text="우리말 문제"
+                android:text="우리말 퀴즈"
                 android:textColor="@color/black"
                 android:textSize="50dp"/>
         </LinearLayout>

@@ -28,12 +28,19 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity,"정확한 정보를 입력하세요",Toast.LENGTH_SHORT).show()
             }
         }
+        go_to_main_text.setOnClickListener {
+            val intent = Intent(this@LoginActivity,MainActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.left_in,R.anim.right_out);
+            finish()
+        }
+
         viewModel.apply {
             loginAndRegsCode.observe(this@LoginActivity, Observer {response->
                 if(response.code==200){
                     val intent = Intent(this@LoginActivity,HomeActivity::class.java)
                     startActivity(intent)
-                    Toast.makeText(this@LoginActivity,response.message,Toast.LENGTH_SHORT).show()
+                    overridePendingTransition(R.anim.right_in,R.anim.left_out);
                     finish()
                 }else{
                     Toast.makeText(this@LoginActivity,response.message,Toast.LENGTH_SHORT).show()
