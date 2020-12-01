@@ -47,8 +47,7 @@ class HomeActivity : AppCompatActivity() {
         user_id.text = "${userId}"
         userViewModel.usersQuizLiveData.observe(this, Observer {
             if (it.code == 200) {
-                user_score.text = if (it.score != 1000) "현재 점수는 ${it.score}점 입니다."
-                else "모든 문제를 다 푸셨습니다."
+                user_score.text = "현재 점수는 ${it.score}점 입니다."
             }
         })
         menu_bt.setOnClickListener {

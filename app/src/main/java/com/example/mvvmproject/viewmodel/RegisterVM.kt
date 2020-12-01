@@ -28,7 +28,7 @@ class RegisterVM @ViewModelInject constructor(
 
     fun register(name: String, id: String, pw: String, phone: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val mRegisterCode = service.register(name, id, pw, phone)
+            val mRegisterCode = service.register(name, id,  pw, phone)
 
             loginAndRegsCode.postValue(mRegisterCode)
         }
@@ -44,10 +44,10 @@ class RegisterVM @ViewModelInject constructor(
     }
 
     fun login(id: String, pw: String) {
-        Log.d(TAG, "HASHCODE: ${security.sha256(id)}")
-        Log.d(TAG, "HASHCODE: ${security.sha256(security.sha256(id))}")
+//        Log.d(TAG, "HASHCODE: ${security.sha256(id)}")
+//        Log.d(TAG, "HASHCODE: ${security.sha256(security.sha256(id))}")
         viewModelScope.launch(Dispatchers.IO) {
-            val mLoginCode = service.login(id, pw)
+            val mLoginCode = service.login(id,  pw)
             loginAndRegsCode.postValue(mLoginCode)
         }
     }

@@ -30,7 +30,7 @@ class RegisterActivity : AppCompatActivity() {
 
             if (rgNameTxt != "") {
                 viewModel.idChk(rgNameTxt)
-            } else Toast.makeText(this@RegisterActivity, "값을 정확히 입력하세요", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this@RegisterActivity, "작성이 안된 곳이 있습니다.", Toast.LENGTH_SHORT).show()
         }
 
         register_bt.setOnClickListener {
