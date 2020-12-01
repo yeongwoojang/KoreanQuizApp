@@ -44,7 +44,9 @@ class QuizActivity : AppCompatActivity() {
                 quiz_no.text = "완료"
                 quiz_text.text=" "
             }
-            else (usersQuizInfo.quizSeq / 4 + 1).toString()
+            else {
+                quiz_no.text = (usersQuizInfo.quizSeq / 4 + 1).toString()
+            }
             score_text.text = usersQuizInfo.score.toString()
         })
     }
