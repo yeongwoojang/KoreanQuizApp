@@ -64,14 +64,15 @@ class KoreanQuizVM @ViewModelInject constructor(
         loadingLiveData.value = false
         viewModelScope.launch(Dispatchers.IO) {
             val quizInfo = service.getKoreanQuiz().koreanAnswerInfo.row.filter { row ->
-                row.q_name.startsWith("음")
+                row.q_name.startsWith("다")
             }
+            Log.d(TAG, "getQuizList: ${quizInfo.toString()}")
             for (i in quizInfo.indices) {
-                quizInfo[i].q_name = "다" + quizInfo[i].q_name
+//                quizInfo[i].q_name = "다" + quizInfo[i].q_name
                 if (quizInfo[i].q_seq != qSeq) {
                     index += 1
                     qSeq = quizInfo[i].q_seq
-
+                    Log.d(TAG, "getQuizList: $qSeq")
                 }
                 quizInfo[i].quizNO = index
             }

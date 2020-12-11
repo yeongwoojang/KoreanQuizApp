@@ -11,9 +11,10 @@ import com.example.mvvmproject.databinding.ItemRankingBinding
 import com.example.mvvmproject.model.vo.RankRow
 import java.util.ArrayList
 
-class RankingViewHolder(itemView : View ) : RecyclerView.ViewHolder(itemView){
+class RankingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val binding = ItemRankingBinding.bind(itemView)
 }
+
 class RankingAdapter : RecyclerView.Adapter<RankingViewHolder>() {
     private var mItems: List<RankRow> = ArrayList<RankRow>()
 
@@ -36,9 +37,9 @@ class RankingAdapter : RecyclerView.Adapter<RankingViewHolder>() {
         holder: RankingViewHolder,
         position: Int
     ) {
-        val ranking :RankRow =mItems[position]
+        val ranking: RankRow = mItems[position]
         holder.binding.rank = mItems[position]
-}
+    }
 
     override fun getItemCount(): Int {
         return mItems.size

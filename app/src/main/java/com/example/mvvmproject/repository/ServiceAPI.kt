@@ -1,6 +1,5 @@
 package com.example.mvvmproject.repository
 
-import androidx.lifecycle.MutableLiveData
 import com.example.mvvmproject.model.vo.*
 import retrofit2.http.*
 
@@ -8,7 +7,7 @@ interface ServiceAPI {
     companion object {
         val BASE_URL: String = "http://ec2-15-164-129-208.ap-northeast-2.compute.amazonaws.com:3000"
         val KOREAN_QUIZE_URL: String =
-            "http://openapi.seoul.go.kr:8088/64584b74676a797734366e4d4a576c/"
+            "http://openapi.seoul.go.kr:8088/6b62436b676a797739386c494c5a58/"
     }
 
     @FormUrlEncoded
