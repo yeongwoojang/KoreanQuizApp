@@ -64,6 +64,7 @@ class KoreanQuizVM @ViewModelInject constructor(
         loadingLiveData.value = false
         viewModelScope.launch(Dispatchers.IO) {
             val quizInfo = service.getKoreanQuiz().koreanAnswerInfo.row.filter { row ->
+                //퀴즈 제목이 "다"로 시작하는 것만 추출
                 row.q_name.startsWith("다")
             }
             Log.d(TAG, "getQuizList: ${quizInfo.toString()}")
@@ -72,9 +73,11 @@ class KoreanQuizVM @ViewModelInject constructor(
                 if (quizInfo[i].q_seq != qSeq) {
                     index += 1
                     qSeq = quizInfo[i].q_seq
-                    Log.d(TAG, "getQuizList: $qSeq")
+//                    Log.d(TAG, "getQuizList: $qSeq")
                 }
                 quizInfo[i].quizNO = index
+                Log.d(TAG, "getQuizList: $index")
+
             }
             quizLiveData.postValue(quizInfo)
             loadingLiveData.postValue(true)

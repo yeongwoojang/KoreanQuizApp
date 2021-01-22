@@ -50,5 +50,4 @@ class QuizActivity : AppCompatActivity() {
             score_text.text = usersQuizInfo.score.toString()
         })
     }
-
 }
